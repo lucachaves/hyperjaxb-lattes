@@ -1,0 +1,62 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+ <xsd:element name="CurriculoVitae" type="CurriculoVitaeType"/>
+  
+ <xsd:complexType name="CurriculoVitaeType">
+  <xsd:sequence>
+   <xsd:element ref="DadosGerais"/>
+  </xsd:sequence>
+  <xsd:attribute name="SISTEMAORIGEMXML" type="xsd:string" use="required"/>
+  <xsd:attribute name="NUMEROIDENTIFICADOR" type="xsd:string" use="optional"/>
+  <xsd:attribute name="FORMATODATAATUALIZACAO" type="xsd:string" use="optional"/>
+  <xsd:attribute name="DATAATUALIZACAO" type="xsd:string" use="optional"/>
+  <xsd:attribute name="FORMATOHORAATUALIZACAO" type="xsd:string" use="optional"/>
+  <xsd:attribute name="HORAATUALIZACAO" type="xsd:string" use="optional"/>
+  <xsd:attribute name="lattes" type="xsd:string" use="optional"/>
+ </xsd:complexType>
+
+ <xsd:element name="DadosGerais" type="DadosGeraisType"/>
+  
+ <xsd:complexType name="DadosGeraisType">
+   <xsd:attribute name="NOMECOMPLETO" type="xsd:string" use="required"/>
+   <xsd:attribute name="NOMECITACOESBIBLIOGRAFICAS" type="xsd:string" use="required"/>
+   <xsd:attribute name="NACIONALIDADE" type="xsd:string" use="required"/>
+   <xsd:attribute name="CPF" type="xsd:string" use="optional"/>
+   <xsd:attribute name="NUMERODOPASSAPORTE" type="xsd:string" use="optional"/>
+   <xsd:attribute name="PAISDENASCIMENTO" type="xsd:string" use="optional"/>
+   <xsd:attribute name="UFNASCIMENTO" type="xsd:string" use="optional"/>
+   <xsd:attribute name="CIDADENASCIMENTO" type="xsd:string" use="optional"/>
+   <xsd:attribute name="FORMATODATADENASCIMENTO" type="xsd:string" use="optional"/>
+   <xsd:attribute name="DATANASCIMENTO" type="xsd:string" use="optional"/>
+   <xsd:attribute name="SEXO" use="required">
+    <xsd:simpleType>
+     <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="MASCULINO"/>
+      <xsd:enumeration value="FEMININO"/>
+     </xsd:restriction>
+    </xsd:simpleType>
+   </xsd:attribute>
+   <xsd:attribute name="NUMEROIDENTIDADE" type="xsd:string" use="optional"/>
+   <xsd:attribute name="ORGAOEMISSOR" type="xsd:string" use="optional"/>
+   <xsd:attribute name="UFORGAOEMISSOR" type="xsd:string" use="optional"/>
+   <xsd:attribute name="FORMATODATADEEMISSAO" type="xsd:string" use="optional"/>
+   <xsd:attribute name="DATADEEMISSAO" type="xsd:string" use="optional"/>
+   <xsd:attribute name="NOMEDOPAI" type="xsd:string" use="optional"/>
+   <xsd:attribute name="NOMEDAMAE" type="xsd:string" use="optional"/>
+   <xsd:attribute name="PERMISSAODEDIVULGACAO" use="required">
+    <xsd:simpleType>
+     <xsd:restriction base="xsd:string">
+      <xsd:enumeration value="SIM"/>
+      <xsd:enumeration value="NAO"/>
+     </xsd:restriction>
+    </xsd:simpleType>
+   </xsd:attribute>
+   <xsd:attribute name="NOMEDOARQUIVODEFOTO" type="xsd:string" use="optional"/>
+   <xsd:attribute name="TEXTORESUMOCVRH" type="xsd:string" use="optional"/>
+   <xsd:attribute name="DATAFALECIMENTO" type="xsd:string" use="optional"/>
+   <xsd:attribute name="SIGLAPAISNACIONALIDADE" type="xsd:string" use="optional"/>
+   <xsd:attribute name="PAISDENACIONALIDADE" type="xsd:string" use="optional"/>
+   <xsd:attribute name="RACAOUCOR" type="xsd:string" use="optional"/>
+  </xsd:complexType>
+
+ </xsd:schema>
