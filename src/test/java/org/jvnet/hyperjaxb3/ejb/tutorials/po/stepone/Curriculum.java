@@ -68,7 +68,7 @@ public class Curriculum {
 
 	@SuppressWarnings("unchecked")
 	public void testRoundtrip() throws JAXBException {
-//		TheadPool
+// TODO Thead Pool, Read PHD XML from Postgres, Read Instance form DB use Hibernate
 
 		final Unmarshaller unmarshaller = context.createUnmarshaller();
 		final Object object = unmarshaller.unmarshal(new File(
