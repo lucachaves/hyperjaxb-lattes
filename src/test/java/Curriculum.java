@@ -1,4 +1,4 @@
-package org.jvnet.hyperjaxb3.ejb.tutorials.po.stepone;
+
 
 import generated.ObjectFactory;
 import generated.CurriculoVitaeType;
@@ -29,6 +29,7 @@ public class Curriculum {
 	private JAXBContext context;
 	
 	public static void main(String[] args) {
+		System.out.println("Iniciando o app");
 		Curriculum c = new Curriculum();
 		try {
 			c.setUp();
@@ -38,6 +39,7 @@ public class Curriculum {
 			System.out.println("Error!!!!!!");
 			e.printStackTrace();
 		}
+		System.out.println("Finalizando o app");
 	}
 
 	public void setUp() throws Exception {
@@ -68,7 +70,7 @@ public class Curriculum {
 
 	@SuppressWarnings("unchecked")
 	public void testRoundtrip() throws JAXBException {
-// TODO Thead Pool, Read PHD XML from Postgres, Read Instance form DB use Hibernate
+// TODO Thead Pool, Read PHD XML from Postgres, Read Instance form DB use Hibernate, gitignore
 
 		final Unmarshaller unmarshaller = context.createUnmarshaller();
 		final Object object = unmarshaller.unmarshal(new File(
@@ -87,11 +89,15 @@ public class Curriculum {
 
 		final EntityManager loadManager = entityManagerFactory
 				.createEntityManager();
-		final CurriculoVitaeType beta = loadManager.find(
-				CurriculoVitaeType.class, id);
+//		final CurriculoVitaeType c = loadManager.find(
+//				CurriculoVitaeType.class, id);
+		final CurriculoVitaeType c = loadManager.find(
+				CurriculoVitaeType.class, (long) 1);
 		
-		final Marshaller marshaller = context.createMarshaller();
-		marshaller.marshal(objectFactory.createCurriculoVitae(beta), System.out);
+		System.out.println(c.getDATAATUALIZACAO());
+		
+//		final Marshaller marshaller = context.createMarshaller();
+//		marshaller.marshal(objectFactory.createCURRICULOVITAE(c), System.out);
 		loadManager.close();
 	}
 }
