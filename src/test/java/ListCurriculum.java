@@ -1,11 +1,11 @@
 
 
-import generated.ObjectFactory;
-import generated.CurriculoVitaeType;
+import generated.*;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 import java.util.Properties;
 
 import javax.persistence.EntityManager;
@@ -20,7 +20,7 @@ import javax.xml.transform.dom.DOMResult;
 
 import junit.framework.TestCase;
 
-public class Curriculum {
+public class ListCurriculum {
 
 	private ObjectFactory objectFactory;
 
@@ -30,7 +30,7 @@ public class Curriculum {
 	
 	public static void main(String[] args) {
 		System.out.println("Iniciando o app");
-		Curriculum c = new Curriculum();
+		ListCurriculum c = new ListCurriculum();
 		try {
 			c.setUp();
 			c.testRoundtrip();
@@ -70,34 +70,39 @@ public class Curriculum {
 
 	@SuppressWarnings("unchecked")
 	public void testRoundtrip() throws JAXBException {
-// TODO Thead Pool, Read PHD XML from Postgres, Read Instance form DB use Hibernate, gitignore
-
-		final Unmarshaller unmarshaller = context.createUnmarshaller();
-		final Object object = unmarshaller.unmarshal(new File(
-				"src/test/samples/curriculum.xml"));
-		final CurriculoVitaeType alpha = ((JAXBElement<CurriculoVitaeType>) object)
-				.getValue();
-
-		final EntityManager saveManager = entityManagerFactory
-				.createEntityManager();
-		saveManager.getTransaction().begin();
-		saveManager.persist(alpha);
-		saveManager.getTransaction().commit();
-		saveManager.close();
-
-		final Long id = alpha.getHjid();
 
 		final EntityManager loadManager = entityManagerFactory
 				.createEntityManager();
-//		final CurriculoVitaeType c = loadManager.find(
-//				CurriculoVitaeType.class, id);
-		final CurriculoVitaeType c = loadManager.find(
-				CurriculoVitaeType.class, (long) 1);
 		
-		System.out.println(c.getDATAATUALIZACAO());
+		final List<CurriculoVitaeType> curriculums = loadManager.createQuery("select c from CurriculoVitaeType c").getResultList();
 		
-//		final Marshaller marshaller = context.createMarshaller();
-//		marshaller.marshal(objectFactory.createCURRICULOVITAE(c), System.out);
+		for(CurriculoVitaeType c: curriculums){
+			DadosGeraisType dg = c.getDADOSGERAIS();
+			FormacaoAcademicaTitulacaoType f= dg.getFORMACAOACADEMICATITULACAO();
+			
+			System.out.println(dg.getNOMECOMPLETO());
+			
+			System.out.println("#### Origem ####");
+			
+			System.out.println(dg.getNACIONALIDADE());
+			System.out.println(dg.getCIDADENASCIMENTO());
+			System.out.println(dg.getUFNASCIMENTO());
+			System.out.println(dg.getPAISDENASCIMENTO());
+			
+			System.out.println("#### Formação ####");
+			
+			for(GraduacaoType g: f.getGRADUACAO()){
+				System.out.println(g.getNOMEINSTITUICAO());
+			}
+			for(EspecializacaoType e: f.getESPECIALIZACAO()){
+				System.out.println(e.getNOMEINSTITUICAO());
+			}
+			
+			System.out.println("#### Trabalho ####");
+		}
+		
+		
+
 		loadManager.close();
 	}
 }

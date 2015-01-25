@@ -2,3 +2,4 @@ target/
 !target/*.jar
 !target/generated-sources
 target-eclipse/
+.settings/

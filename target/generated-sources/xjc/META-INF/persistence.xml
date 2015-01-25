@@ -243,19 +243,19 @@ http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistenc
         <class>generated.MusicaType</class>
         <class>generated.ObraDeArtesVisuaisType</class>
         <class>generated.OrganizacaoDeEventoType</class>
-        <class>generated.Orientacao</class>
         <class>generated.OrientacaoEmAndamentoDeAperfeicoamentoEspecializacaoType</class>
         <class>generated.OrientacaoEmAndamentoDeDoutoradoType</class>
         <class>generated.OrientacaoEmAndamentoDeGraduacaoType</class>
         <class>generated.OrientacaoEmAndamentoDeIniciacaoCientificaType</class>
         <class>generated.OrientacaoEmAndamentoDeMestradoType</class>
         <class>generated.OrientacaoEmAndamentoDePosDoutoradoType</class>
-        <class>generated.Orientacoes</class>
+        <class>generated.OrientacaoType</class>
         <class>generated.OrientacoesConcluidasParaDoutoradoType</class>
         <class>generated.OrientacoesConcluidasParaMestradoType</class>
         <class>generated.OrientacoesConcluidasParaPosDoutoradoType</class>
         <class>generated.OrientacoesConcluidasType</class>
         <class>generated.OrientacoesEmAndamentoType</class>
+        <class>generated.OrientacoesType</class>
         <class>generated.OutraAtividadeTecnicoCientificaType</class>
         <class>generated.OutraProducaoArtisticaCulturalType</class>
         <class>generated.OutraProducaoBibliograficaType</class>
@@ -299,9 +299,9 @@ http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistenc
         <class>generated.ProcessosOuTecnicasType</class>
         <class>generated.ProducaoArtisticaCulturalType</class>
         <class>generated.ProducaoBibliograficaType</class>
-        <class>generated.ProducaoCDDoProjetoType</class>
+        <class>generated.ProducaoCtDoProjetoType</class>
         <class>generated.ProducaoTecnicaType</class>
-        <class>generated.ProducoesCTDoProjetoType</class>
+        <class>generated.ProducoesCtDoProjetoType</class>
         <class>generated.ProdutoTecnologicoType</class>
         <class>generated.ProgramaDeRadioOuTvType</class>
         <class>generated.ProjetoDePesquisaType</class>
@@ -320,8 +320,8 @@ http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistenc
         <class>generated.TrabalhoTecnicoType</class>
         <class>generated.TrabalhosEmEventosType</class>
         <class>generated.TraducaoType</class>
-        <class>generated.Treinamento</class>
         <class>generated.TreinamentoMinistradoType</class>
-        <class>generated.VinculoType</class>
+        <class>generated.TreinamentoType</class>
+        <class>generated.VinculosType</class>
     </persistence-unit>
 </persistence>
