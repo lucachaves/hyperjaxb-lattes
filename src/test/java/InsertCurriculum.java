@@ -8,6 +8,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.ResultSet;
+import java.text.DecimalFormat;
 import java.io.File;
 import java.io.IOException;
 import java.io.BufferedReader;
@@ -123,7 +124,7 @@ public class InsertCurriculum {
 		Statement stmt = connectionLattesRDB.createStatement();
         ResultSet rs = stmt.executeQuery( "SELECT curriculo_vitae_type.NUMEROIDENTIFICADOR FROM public.curriculo_vitae_type WHERE NUMEROIDENTIFICADOR = '"+id16+"';" );
         while ( rs.next() ) {
-            id = rs.getString("NUMERO-IDENTIFICADOR");
+            id = rs.getString("NUMEROIDENTIFICADOR");
          }
          rs.close();
          stmt.close();
@@ -144,12 +145,13 @@ public class InsertCurriculum {
 		float percentage;
 		
 		for(Integer id: xmls.keySet()){
-			percentage = (++countXml * 100)/xmlsSize;
+			++countXml;
+			percentage = (countXml*100f)/xmlsSize;
 			id16 = xmls.get(id);
 			if(hasCurriculum(id16))
 				continue;
-			 xml = getXml(id);
-			System.out.println(countXml +"/"+ xmlsSize +" "+ percentage +"% - "+ id16);
+			xml = getXml(id);
+			System.out.println(countXml +"/"+ xmlsSize +" "+(new DecimalFormat("#0.00").format(percentage)) +"% - "+ id16);
 			try {
 				unmarshaller = context.createUnmarshaller();
 	//			final Object object = unmarshaller.unmarshal(new File("src/test/samples/curriculum.xml"));
