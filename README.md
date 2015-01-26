@@ -1,5 +1,7 @@
 # hyperjaxb-lattes
 
+O hyperjaxb-lattes é um projeto que consistem em converter uma base relacional com xml no formato de string para uma base com xml em tabelas. Obs: o projeto precisa de Java 7.  
+
 ##Baseado no projeto: 
 
 - http://confluence.highsource.org/display/HJ3/Purchase+Order+Tutorial
