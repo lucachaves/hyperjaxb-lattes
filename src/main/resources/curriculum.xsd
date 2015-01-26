@@ -28,7 +28,7 @@
 
   <xsd:simpleType name="longString">
     <xsd:restriction base="xsd:string">
-      <xsd:maxLength value="700" />
+      <xsd:maxLength value="1500" />
     </xsd:restriction>
   </xsd:simpleType>
 
