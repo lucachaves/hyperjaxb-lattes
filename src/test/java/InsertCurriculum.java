@@ -16,6 +16,7 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -117,6 +118,15 @@ public class InsertCurriculum {
 		
 		return xml;
 	}
+		
+	private void removeCurriculum(Integer id) throws SQLException {
+		saveManager.getTransaction().begin();
+		Statement stmt = connectionLattesXML.createStatement();
+		CurriculoVitaeType c = saveManager.find(CurriculoVitaeType.class, id);
+        saveManager.remove(c);
+		saveManager.getTransaction().commit();
+	}
+
 	
 	private Boolean hasCurriculum(String id16) throws SQLException{
 		String id = "";
@@ -143,11 +153,14 @@ public class InsertCurriculum {
 		HashMap<Integer, String> xmls = getXmlIds();
 		int xmlsSize = xmls.size();
 		float percentage;
+		String[] errors = {"id16-failed"};
 		
 		for(Integer id: xmls.keySet()){
 			++countXml;
 			percentage = (countXml*100f)/xmlsSize;
 			id16 = xmls.get(id);
+			if(Arrays.asList(errors).contains(id16))
+				continue;
 			if(hasCurriculum(id16))
 				continue;
 			xml = getXml(id);
@@ -169,7 +182,23 @@ public class InsertCurriculum {
 		}
 	}
 	
+	private void clean() throws SQLException {
+		HashMap<Integer, String> xmls = getXmlIds();
+		List<String> ids = new ArrayList<String>();
+		String id16 = "";
+		
+		for(Integer id: xmls.keySet()){
+			id16 = xmls.get(id);
+			if(ids.contains(id16)){
+				System.out.print(" x ");
+				removeCurriculum(id);
+			}else{
+				ids.add(id16);
+			}
+		}
+	}
 	
+
 	public static void main(String[] args) {
 		System.out.println("Iniciando o app");
 		
@@ -179,6 +208,7 @@ public class InsertCurriculum {
 		try {
 			curriculum.setUp();
 			curriculum.load();
+//			curriculum.clean();
 			curriculum.tearDown();
 		} catch (Exception e) {
 			System.out.println("Error!!!!!!");
@@ -194,6 +224,5 @@ public class InsertCurriculum {
 		
 		System.out.println("Finalizando o app em: "+hours+":"+minutes+":"+seconds);
 	}
-
 	
 }

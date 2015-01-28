@@ -32,6 +32,12 @@
     </xsd:restriction>
   </xsd:simpleType>
 
+  <xsd:simpleType name="extraString">
+    <xsd:restriction base="xsd:string">
+      <xsd:maxLength value="3000" />
+    </xsd:restriction>
+  </xsd:simpleType>
+
   <xsd:element name="CURRICULO-VITAE" type="CurriculoVitaeType"/>
   <xsd:complexType name="CurriculoVitaeType">
     <xsd:sequence>
@@ -59,7 +65,7 @@
       <xsd:element ref="PREMIOS-TITULOS" minOccurs="0" maxOccurs="1" />
     </xsd:sequence>
     <xsd:attribute name="NOME-COMPLETO" type="xsd:string" use="required" />
-    <xsd:attribute name="NOME-EM-CITACOES-BIBLIOGRAFICAS" type="longString" use="required" />
+    <xsd:attribute name="NOME-EM-CITACOES-BIBLIOGRAFICAS" type="extraString" use="required" />
     <xsd:attribute name="NACIONALIDADE" type="xsd:string" use="required" />
     <xsd:attribute name="CPF" type="xsd:string" use="optional" />
     <xsd:attribute name="NUMERO-DO-PASSAPORTE" type="xsd:string" use="optional" />
@@ -754,7 +760,7 @@
   <xsd:element name="INTEGRANTES-DO-PROJETO" type="IntegrantesDoProjetoType"/>
   <xsd:complexType mixed="true" name="IntegrantesDoProjetoType">
     <xsd:attribute name="NOME-COMPLETO" type="xsd:string" use="optional" />
-    <xsd:attribute name="NOME-PARA-CITACAO" type="longString" use="optional" />
+    <xsd:attribute name="NOME-PARA-CITACAO" type="extraString" use="optional" />
     <xsd:attribute name="ORDEM-DE-INTEGRACAO" type="xsd:string" use="optional" />
     <xsd:attribute name="FLAG-RESPONSAVEL" use="optional">
       <xsd:simpleType>
