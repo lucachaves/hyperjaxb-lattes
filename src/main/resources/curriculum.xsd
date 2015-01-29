@@ -42,6 +42,10 @@
   <xsd:complexType name="CurriculoVitaeType">
     <xsd:sequence>
       <xsd:element ref="DADOS-GERAIS" />
+      <xsd:element ref="PRODUCAO-BIBLIOGRAFICA" minOccurs="0" maxOccurs="1" />
+      <xsd:element ref="PRODUCAO-TECNICA" minOccurs="0" maxOccurs="1" />
+      <xsd:element ref="OUTRA-PRODUCAO" minOccurs="0" maxOccurs="1" />
+      <xsd:element ref="DADOS-COMPLEMENTARES" minOccurs="0" maxOccurs="1" />
     </xsd:sequence>
     <xsd:attribute name="SISTEMA-ORIGEM-XML" type="xsd:string" use="required" />
     <xsd:attribute name="NUMERO-IDENTIFICADOR" type="xsd:string" use="optional" />

@@ -92,7 +92,7 @@ public class InsertCurriculum {
 		HashMap<Integer, String> xmls = new HashMap<Integer, String>();
 		
 		Statement stmt = connectionLattesXML.createStatement();
-		ResultSet rs = stmt.executeQuery( "SELECT curriculums.id, curriculums.id16 FROM public.curriculums WHERE curriculums.degree ILIKE '%pos-doutorado%' ORDER BY curriculums.id DESC;" );
+		ResultSet rs = stmt.executeQuery( "SELECT curriculums.id, curriculums.id16 FROM public.curriculums WHERE curriculums.degree ILIKE '%doutorado%' ORDER BY curriculums.id DESC;" );
 		while ( rs.next() ) {
             Integer id = rs.getInt("id");
             String  id16 = rs.getString("id16");
