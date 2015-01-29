@@ -5450,7 +5450,7 @@
   <xsd:element name="PARTICIPANTE-DE-EVENTOS-CONGRESSOS" type="ParticipanteDeEventosCongressosType"/>
   <xsd:complexType name="ParticipanteDeEventosCongressosType">
     <xsd:attribute name="NOME-COMPLETO-DO-PARTICIPANTE-DE-EVENTOS-CONGRESSOS" type="xsd:string" use="optional" />
-    <xsd:attribute name="NOME-PARA-CITACAO-DO-PARTICIPANTE-DE-EVENTOS-CONGRESSOS" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-PARA-CITACAO-DO-PARTICIPANTE-DE-EVENTOS-CONGRESSOS" type="xsd:string" use="extraString" />
     <xsd:attribute name="ORDEM-PARTICIPANTE" type="xsd:string" use="optional" />
     <xsd:attribute name="CPF-DO-PARTICIPANTE-PARTICIPANTE-DE-EVENTOS-CONGRESSOS" type="xsd:string" use="optional" />
     <xsd:attribute name="NRO-ID-CNPQ" type="xsd:string" use="optional" />
