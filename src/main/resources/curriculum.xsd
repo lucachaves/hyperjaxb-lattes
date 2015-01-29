@@ -5061,7 +5061,7 @@
   <xsd:element name="PARTICIPANTE-BANCA" type="ParticipanteBancaType"/>
   <xsd:complexType name="ParticipanteBancaType">
     <xsd:attribute name="NOME-COMPLETO-DO-PARTICIPANTE-DA-BANCA" type="xsd:string" use="optional" />
-    <xsd:attribute name="NOME-PARA-CITACAO-DO-PARTICIPANTE-DA-BANCA" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-PARA-CITACAO-DO-PARTICIPANTE-DA-BANCA" type="extraString" use="optional" />
     <xsd:attribute name="ORDEM-PARTICIPANTE" type="xsd:string" use="optional" />
     <xsd:attribute name="CPF-DO-PARTICIPANTE-DA-BANCA" type="xsd:string" use="optional" />
     <xsd:attribute name="NRO-ID-CNPQ" type="xsd:string" use="optional" />
