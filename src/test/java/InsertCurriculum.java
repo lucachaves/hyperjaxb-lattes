@@ -209,6 +209,7 @@ public class InsertCurriculum {
 			curriculum.setUp();
 			curriculum.load();
 //			curriculum.clean();
+//			System.out.println(curriculum.getXml(111));
 			curriculum.tearDown();
 		} catch (Exception e) {
 			System.out.println("Error!!!!!!");

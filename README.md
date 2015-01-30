@@ -25,6 +25,8 @@ mvn clean install
 
 ##OBs:
 
+Ao executar o projeto é sempre legal verificar se todas as tabelas estão sendo preenchidas para garantir que os dados e schema estão bem ligados.
+
 VM args: Xms specifies the initial memory allocation pool e Xmx specifies the maximum memory allocation pool for a Java Virtual Machine (JVM)
 
 ```

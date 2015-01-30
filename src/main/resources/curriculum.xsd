@@ -56,6 +56,12 @@
     </xsd:restriction>
   </xsd:simpleType>
 
+  <xsd:simpleType name="extraHugeString">
+    <xsd:restriction base="xsd:string">
+      <xsd:maxLength value="10000" />
+    </xsd:restriction>
+  </xsd:simpleType>
+
   <xsd:element name="CURRICULO-VITAE" type="CurriculoVitaeType"/>
   <xsd:complexType name="CurriculoVitaeType">
     <xsd:sequence>
@@ -120,8 +126,8 @@
       </xsd:simpleType>
     </xsd:attribute>
     <xsd:attribute name="NOME-DO-ARQUIVO-DE-FOTO" type="xsd:string" use="optional" />
-    <xsd:attribute name="TEXTO-RESUMO-CV-RH" type="longString" use="optional" />
-    <!-- <xsd:attribute name="OUTRAS-INFORMACOES-RELEVANTES" type="longString" use="optional" /> -->
+    <xsd:attribute name="TEXTO-RESUMO-CV-RH" type="extraHugeString" use="optional" />
+    <!-- <xsd:attribute name="OUTRAS-INFORMACOES-RELEVANTES" type="extraHugeString" use="optional" /> -->
     <xsd:attribute name="DATA-FALECIMENTO" type="xsd:string" use="optional" />
     <xsd:attribute name="SIGLA-PAIS-NACIONALIDADE" type="xsd:string" use="optional" />
     <xsd:attribute name="PAIS-DE-NACIONALIDADE" type="xsd:string" use="optional" />
@@ -130,13 +136,13 @@
 
   <xsd:element name="RESUMO-CV" type="ResumoCVType"/>
   <xsd:complexType name="ResumoCVType">
-    <xsd:attribute name="TEXTO-RESUMO-CV-RH" type="longString" use="optional"/>
-    <xsd:attribute name="TEXTO-RESUMO-CV-RH-EN" type="longString" use="optional"/>
+    <xsd:attribute name="TEXTO-RESUMO-CV-RH" type="extraHugeString" use="optional"/>
+    <xsd:attribute name="TEXTO-RESUMO-CV-RH-EN" type="extraHugeString" use="optional"/>
   </xsd:complexType>
 
   <xsd:element name="OUTRAS-INFORMACOES-RELEVANTES" type="OutrasInformacoesRelevantesType"/>
   <xsd:complexType name="OutrasInformacoesRelevantesType">
-    <xsd:attribute name="OUTRAS-INFORMACOES-RELEVANTES" type="longString" use="optional" />
+    <xsd:attribute name="OUTRAS-INFORMACOES-RELEVANTES" type="extraHugeString" use="optional" />
   </xsd:complexType>
 
   <xsd:element name="ENDERECO" type="EnderecoType"/>
@@ -697,9 +703,9 @@
     </xsd:sequence>
     <xsd:attribute name="SEQUENCIA-LINHA" type="xsd:string" use="optional" />
     <xsd:attribute name="TITULO-DA-LINHA-DE-PESQUISA" type="String" use="optional" />
-    <xsd:attribute name="OBJETIVOS-LINHA-DE-PESQUISA" type="longString" use="optional" />
+    <xsd:attribute name="OBJETIVOS-LINHA-DE-PESQUISA" type="extraHugeString" use="optional" />
     <xsd:attribute name="TITULO-DA-LINHA-DE-PESQUISA-INGLES" type="String" use="optional" />
-    <xsd:attribute name="OBJETIVOS-LINHA-DE-PESQUISA-INGLES" type="longString" use="optional" />
+    <xsd:attribute name="OBJETIVOS-LINHA-DE-PESQUISA-INGLES" type="extraHugeString" use="optional" />
     <xsd:attribute name="FLAG-LINHA-DE-PESQUISA-ATIVA" use="optional">
       <xsd:simpleType>
         <xsd:restriction base="xsd:string">
@@ -746,9 +752,9 @@
     <xsd:attribute name="NUMERO-MESTRADO-ACADEMICO" type="xsd:string" use="optional" />
     <xsd:attribute name="NUMERO-MESTRADO-PROF" type="xsd:string" use="optional" />
     <xsd:attribute name="NUMERO-DOUTORADO" type="xsd:string" use="optional" />
-    <xsd:attribute name="DESCRICAO-DO-PROJETO" type="longString" use="optional"/>
+    <xsd:attribute name="DESCRICAO-DO-PROJETO" type="extraHugeString" use="optional"/>
     <xsd:attribute name="IDENTIFICADOR-PROJETO" type="xsd:string" use="optional" />
-    <xsd:attribute name="DESCRICAO-DO-PROJETO-INGLES" type="longString" use="optional" />
+    <xsd:attribute name="DESCRICAO-DO-PROJETO-INGLES" type="extraHugeString" use="optional" />
     <xsd:attribute name="NOME-DO-PROJETO-INGLES" type="xsd:string" use="optional" />
     <xsd:attribute name="FLAG-POTENCIAL-INOVACAO" default="NAO">
       <xsd:simpleType>
@@ -923,7 +929,7 @@
     <xsd:attribute name="ANO-INICIO" type="xsd:string" use="optional" />
     <xsd:attribute name="MES-FIM" type="xsd:string" use="optional" />
     <xsd:attribute name="ANO-FIM" type="xsd:string" use="optional" />
-    <xsd:attribute name="OUTRAS-INFORMACOES" type="longString" use="optional" />
+    <xsd:attribute name="OUTRAS-INFORMACOES" type="extraHugeString" use="optional" />
     <xsd:attribute name="FLAG-VINCULO-EMPREGATICIO" use="optional">
       <xsd:simpleType>
         <xsd:restriction base="xsd:string">
@@ -935,7 +941,7 @@
     <xsd:attribute name="OUTRO-VINCULO-INFORMADO" type="xsd:string" use="optional" />
     <xsd:attribute name="OUTRO-ENQUADRAMENTO-FUNCIONAL-INFORMADO" type="xsd:string" use="optional" />
     <xsd:attribute name="OUTRO-ENQUADRAMENTO-FUNCIONAL-INFORMADO-INGLES" type="xsd:string" use="optional" />
-    <xsd:attribute name="OUTRAS-INFORMACOES-INGLES" type="longString" use="optional" />
+    <xsd:attribute name="OUTRAS-INFORMACOES-INGLES" type="extraHugeString" use="optional" />
   </xsd:complexType>
 
   <xsd:element name="ATIVIDADES-DE-DIRECAO-E-ADMINISTRACAO" type="AtividadesDeDirecaoEAdministracaoType"/>
@@ -1492,8 +1498,8 @@
 
   <xsd:element name="INFORMACOES-ADICIONAIS" type="InformacoesAdicionaisType"/>
   <xsd:complexType name="InformacoesAdicionaisType">
-    <xsd:attribute name="DESCRICAO-INFORMACOES-ADICIONAIS" type="longString" use="optional"/>
-    <xsd:attribute name="DESCRICAO-INFORMACOES-ADICIONAIS-INGLES" type="longString" use="optional"/>
+    <xsd:attribute name="DESCRICAO-INFORMACOES-ADICIONAIS" type="extraHugeString" use="optional"/>
+    <xsd:attribute name="DESCRICAO-INFORMACOES-ADICIONAIS-INGLES" type="extraHugeString" use="optional"/>
   </xsd:complexType>
 
   <xsd:element name="ARTIGOS-PUBLICADOS" type="ArtigosPublicadosType"/>
@@ -2904,7 +2910,7 @@
   <xsd:element name="DETALHAMENTO-DA-APRESENTACAO-DE-TRABALHO" type="DetalhamentoDaApresentacaoDeTrabalhoType"/>
   <xsd:complexType name="DetalhamentoDaApresentacaoDeTrabalhoType">
     <xsd:attribute name="NOME-DO-EVENTO" type="String" use="optional" />
-    <xsd:attribute name="INSTITUICAO-PROMOTORA" type="xsd:string" use="optional" />
+    <xsd:attribute name="INSTITUICAO-PROMOTORA" type="String" use="optional" />
     <xsd:attribute name="LOCAL-DA-APRESENTACAO" type="xsd:string" use="optional" />
     <xsd:attribute name="CIDADE-DA-APRESENTACAO" type="xsd:string" use="optional" />
     <xsd:attribute name="NOME-DO-EVENTO-INGLES" type="String" use="optional" />
@@ -3520,7 +3526,7 @@
         </xsd:restriction>
       </xsd:simpleType>
     </xsd:attribute>
-    <xsd:attribute name="TITULO" type="String" use="optional" />
+    <xsd:attribute name="TITULO" type="bigString" use="optional" />
     <xsd:attribute name="ANO" type="xsd:string" use="optional" />
     <xsd:attribute name="PAIS" type="xsd:string" use="optional" />
     <xsd:attribute name="IDIOMA" type="xsd:string" use="optional" />
@@ -3533,8 +3539,8 @@
       </xsd:simpleType>
     </xsd:attribute>
     <xsd:attribute name="DOI" type="xsd:string" use="optional" />
-    <xsd:attribute name="TITULO-INGLES" type="String" use="optional" />
-    <xsd:attribute name="HOME-PAGE" type="xsd:string" use="optional" />
+    <xsd:attribute name="TITULO-INGLES" type="bigString" use="optional" />
+    <xsd:attribute name="HOME-PAGE" type="longString" use="optional" />
     <xsd:attribute name="MEIO-DE-DIVULGACAO" default="NAO_INFORMADO">
       <xsd:simpleType>
         <xsd:restriction base="xsd:string">
