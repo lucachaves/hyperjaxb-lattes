@@ -29,6 +29,17 @@ import javax.xml.transform.dom.DOMResult;
 
 import junit.framework.TestCase;
 
+//Location: id, city, state, country, latitude, longitude
+//Birth: id, id16, idLocation, nationality
+//Place: id, acronym, name, idLocation 
+//Degree: id, kind, idPlace, year
+//Work: id, idPlace
+//Oritentation: id,
+
+//id16, kind, idPlace, idPlace
+//Kind: Nascimento, Trabalho, Mestrado, Doutorado...
+//namePerson, Kind, namePlace, city, state, country, latitude, longitude
+
 public class ListCurriculum {
 
 	private ObjectFactory objectFactory;
@@ -85,32 +96,16 @@ public class ListCurriculum {
 				.createEntityManager();
 	}
 
-	public void loadLocation() throws JAXBException, SQLException {
-//		Location: id, city, state, country, latitude, longitude
-//		Birth: id, id16, idLocation, nationality
-//		Place: id, acronym, name, idLocation 
-//		Degree: id, kind, idPlace, year
-//		Work: id, idPlace
-//		Oritentation: id,
-		
-//		id16, kind, idPlace, idPlace
-//		Kind: Nascimento, Trabalho, Mestrado, Doutorado...
-//		namePerson, Kind, namePlace, city, state, country, latitude, longitude
-		
-		List<Long> curriculums = loadManager.createQuery("select c.hjid from CurriculoVitaeType c").getResultList();
-//		List<Long> curriculums = loadManager.createQuery("select c.hjid from CurriculoVitaeType c").setMaxResults(10).getResultList();
+	public void loadLocation() throws JAXBException, SQLException {		
+//		List<Long> curriculums = loadManager.createQuery("select c.hjid from CurriculoVitaeType c").getResultList();
+		List<Long> curriculums = loadManager.createQuery("select c.hjid from CurriculoVitaeType c").setMaxResults(10).getResultList();
 		CurriculoVitaeType curriculum = null;
 		HashMap<String, String> location;
-		HashMap<String, ArrayList<HashMap<String, String>>> curriculumLocations = new HashMap<String, ArrayList<HashMap<String, String>>>();
-		ArrayList<HashMap<String, String>> locations = null;
-		DadosGeraisType dg;
-		InformacaoAdicionalInstituicaoType inst = null;
-		List<InformacaoAdicionalInstituicaoType> result = null;
+		DadosGeraisType dg = null;
 		String id16 = null;
 		
 		for(Long id: curriculums){
 			
-			locations = new ArrayList<HashMap<String, String>>();
 			try{
 				curriculum = loadManager.find(CurriculoVitaeType.class, id);
 			}catch (NoResultException nre){
@@ -133,354 +128,113 @@ public class ListCurriculum {
 			location.put("state", dg.getUFNASCIMENTO());
 			location.put("country", dg.getPAISDENASCIMENTO());
 			location.put("nacionality", dg.getNACIONALIDADE());
+			location.put("codePlace", "");
+			location.put("year", "");
 			insertLocation(id16, location);
-//			locations.add(location);
 			
 //			System.out.println("#### Degree ####");
 			for(GraduacaoType degree: f.getGRADUACAO()){
-//				System.out.println(degree.getNOMEINSTITUICAO());
 //				String codCourse = degree.getCODIGOCURSO();
 //				InformacaoAdicionalCursoType course
-				try{
-					result = loadManager.createQuery("from InformacaoAdicionalInstituicaoType WHERE codigoinstituicao = '"+degree.getCODIGOINSTITUICAO()+"'").getResultList();
-					if(result.size() > 0){
-						inst = (InformacaoAdicionalInstituicaoType) result.get(0);
-					}
-				}catch (NoResultException nre){
-					System.out.println("Error!!!!!!");
-					nre.printStackTrace();
-				}
-				if(inst != null){
-//					System.out.println(inst.getSIGLAPAISINSTITUICAO()+" "+inst.getSIGLAUFINSTITUICAO());
-					location = new HashMap<String, String>();
-					location.put("kind", "graduacao");
-					location.put("city", "");
-					location.put("state", inst.getSIGLAUFINSTITUICAO());
-					location.put("country", inst.getNOMEPAISINSTITUICAO());
-					location.put("codeCountry", inst.getSIGLAPAISINSTITUICAO());
-					location.put("place", degree.getNOMEINSTITUICAO());
-					location.put("codePlace", inst.getSIGLAINSTITUICAO());
-					insertLocation(id16, location);
-//					locations.add(location);
-				}
-				
+				createDegree(id16, "graducao", degree.getCODIGOINSTITUICAO(), degree.getNOMEINSTITUICAO(), degree.getANODECONCLUSAO());
 			}
 			for(EspecializacaoType degree: f.getESPECIALIZACAO()){
-//				System.out.println(degree.getNOMEINSTITUICAO());
-				try{
-					result = loadManager.createQuery("from InformacaoAdicionalInstituicaoType WHERE codigoinstituicao = '"+degree.getCODIGOINSTITUICAO()+"'").getResultList();
-					if(result.size() > 0){
-						inst = (InformacaoAdicionalInstituicaoType) result.get(0);
-					}
-				}catch (NoResultException nre){
-					System.out.println("Error!!!!!!");
-					nre.printStackTrace();
-				}
-				if(inst != null){
-//					System.out.println(inst.getSIGLAPAISINSTITUICAO()+" "+inst.getSIGLAUFINSTITUICAO());
-					location = new HashMap<String, String>();
-					location.put("kind", "especializacao");
-					location.put("city", "");
-					location.put("state", inst.getSIGLAUFINSTITUICAO());
-					location.put("country", inst.getNOMEPAISINSTITUICAO());
-					location.put("codeCountry", inst.getSIGLAPAISINSTITUICAO());
-					location.put("place", degree.getNOMEINSTITUICAO());
-					location.put("codePlace", inst.getSIGLAINSTITUICAO());
-					insertLocation(id16, location);
-//					locations.add(location);
-				}
+				createDegree(id16, "especializacao", degree.getCODIGOINSTITUICAO(), degree.getNOMEINSTITUICAO(), degree.getANODECONCLUSAO());
 			}
 			for(MestradoType degree: f.getMESTRADO()){
-//				System.out.println(degree.getNOMEINSTITUICAO());
-				try{
-					result = loadManager.createQuery("from InformacaoAdicionalInstituicaoType WHERE codigoinstituicao = '"+degree.getCODIGOINSTITUICAO()+"'").getResultList();
-					if(result.size() > 0){
-						inst = (InformacaoAdicionalInstituicaoType) result.get(0);
-					}
-				}catch (NoResultException nre){
-					System.out.println("Error!!!!!!");
-					nre.printStackTrace();
-				}
-				if(inst != null){
-//					System.out.println(inst.getSIGLAPAISINSTITUICAO()+" "+inst.getSIGLAUFINSTITUICAO());
-					location = new HashMap<String, String>();
-					location.put("kind", "mestrado");
-					location.put("city", "");
-					location.put("state", inst.getSIGLAUFINSTITUICAO());
-					location.put("country", inst.getNOMEPAISINSTITUICAO());
-					location.put("codeCountry", inst.getSIGLAPAISINSTITUICAO());
-					location.put("place", degree.getNOMEINSTITUICAO());
-					location.put("codePlace", inst.getSIGLAINSTITUICAO());
-					insertLocation(id16, location);
-//					locations.add(location);
-				}
+				createDegree(id16, "mestrado", degree.getCODIGOINSTITUICAO(), degree.getNOMEINSTITUICAO(), degree.getANODECONCLUSAO());
 			}
 			for(DoutoradoType degree: f.getDOUTORADO()){
-//				System.out.println(degree.getNOMEINSTITUICAO());
-				try{
-					result = loadManager.createQuery("from InformacaoAdicionalInstituicaoType WHERE codigoinstituicao = '"+degree.getCODIGOINSTITUICAO()+"'").getResultList();
-					if(result.size() > 0){
-						inst = (InformacaoAdicionalInstituicaoType) result.get(0);
-					}
-				}catch (NoResultException nre){
-					System.out.println("Error!!!!!!");
-					nre.printStackTrace();
-				}
-				if(inst != null){
-//					System.out.println(inst.getSIGLAPAISINSTITUICAO()+" "+inst.getSIGLAUFINSTITUICAO());
-					location = new HashMap<String, String>();
-					location.put("kind", "doutorado");
-					location.put("city", "");
-					location.put("state", inst.getSIGLAUFINSTITUICAO());
-					location.put("country", inst.getNOMEPAISINSTITUICAO());
-					location.put("codeCountry", inst.getSIGLAPAISINSTITUICAO());
-					location.put("place", degree.getNOMEINSTITUICAO());
-					location.put("codePlace", inst.getSIGLAINSTITUICAO());
-					insertLocation(id16, location);
-//					locations.add(location);
-				}
+				createDegree(id16, "doutorado", degree.getCODIGOINSTITUICAO(), degree.getNOMEINSTITUICAO(), degree.getANODECONCLUSAO());
 			}
 			for(PosDoutoradoType degree: f.getPOSDOUTORADO()){
-//				System.out.println(degree.getNOMEINSTITUICAO());
-				try{
-					result = loadManager.createQuery("from InformacaoAdicionalInstituicaoType WHERE codigoinstituicao = '"+degree.getCODIGOINSTITUICAO()+"'").getResultList();
-					if(result.size() > 0){
-						inst = (InformacaoAdicionalInstituicaoType) result.get(0);
-					}
-				}catch (NoResultException nre){
-					System.out.println("Error!!!!!!");
-					nre.printStackTrace();
-				}
-				if(inst != null){
-//					System.out.println(inst.getSIGLAPAISINSTITUICAO()+" "+inst.getSIGLAUFINSTITUICAO());
-					location = new HashMap<String, String>();
-					location.put("kind", "pos-doutorado");
-					location.put("city", "");
-					location.put("state", inst.getSIGLAUFINSTITUICAO());
-					location.put("country", inst.getNOMEPAISINSTITUICAO());
-					location.put("codeCountry", inst.getSIGLAPAISINSTITUICAO());
-					location.put("place", degree.getNOMEINSTITUICAO());
-					location.put("codePlace", inst.getSIGLAINSTITUICAO());
-					insertLocation(id16, location);
-//					locations.add(location);
-				}
+				createDegree(id16, "posdoutorado", degree.getCODIGOINSTITUICAO(), degree.getNOMEINSTITUICAO(), degree.getANODECONCLUSAO());
 			}
 			for(LivreDocenciaType degree: f.getLIVREDOCENCIA()){
-//				System.out.println(degree.getNOMEINSTITUICAO());
-				try{
-					result = loadManager.createQuery("from InformacaoAdicionalInstituicaoType WHERE codigoinstituicao = '"+degree.getCODIGOINSTITUICAO()+"'").getResultList();
-					if(result.size() > 0){
-						inst = (InformacaoAdicionalInstituicaoType) result.get(0);
-					}
-				}catch (NoResultException nre){
-					System.out.println("Error!!!!!!");
-					nre.printStackTrace();
-				}
-				if(inst != null){
-//					System.out.println(inst.getSIGLAPAISINSTITUICAO()+" "+inst.getSIGLAUFINSTITUICAO());
-					location = new HashMap<String, String>();
-					location.put("kind", "livre-docencia");
-					location.put("city", "");
-					location.put("state", inst.getSIGLAUFINSTITUICAO());
-					location.put("country", inst.getNOMEPAISINSTITUICAO());
-					location.put("codeCountry", inst.getSIGLAPAISINSTITUICAO());
-					location.put("place", degree.getNOMEINSTITUICAO());
-					location.put("codePlace", inst.getSIGLAINSTITUICAO());
-					insertLocation(id16, location);
-//					locations.add(location);
-				}
+				createDegree(id16, "livredocencia", degree.getCODIGOINSTITUICAO(), degree.getNOMEINSTITUICAO(), degree.getANODEOBTENCAODOTITULO());
 			}
 			for(CursoTecnicoProfisonalizanteType degree: f.getCURSOTECNICOPROFISSIONALIZANTE()){
-//				System.out.println(degree.getNOMEINSTITUICAO());
-				try{
-					result = loadManager.createQuery("from InformacaoAdicionalInstituicaoType WHERE codigoinstituicao = '"+degree.getCODIGOINSTITUICAO()+"'").getResultList();
-					if(result.size() > 0){
-						inst = (InformacaoAdicionalInstituicaoType) result.get(0);
-					}
-				}catch (NoResultException nre){
-					System.out.println("Error!!!!!!");
-					nre.printStackTrace();
-				}
-				if(inst != null){
-//					System.out.println(inst.getSIGLAPAISINSTITUICAO()+" "+inst.getSIGLAUFINSTITUICAO());
-					location = new HashMap<String, String>();
-					location.put("kind", "curso-tecnico-profissionalizante");
-					location.put("city", "");
-					location.put("state", inst.getSIGLAUFINSTITUICAO());
-					location.put("country", inst.getNOMEPAISINSTITUICAO());
-					location.put("codeCountry", inst.getSIGLAPAISINSTITUICAO());
-					location.put("place", degree.getNOMEINSTITUICAO());
-					location.put("codePlace", inst.getSIGLAINSTITUICAO());
-					insertLocation(id16, location);
-//					locations.add(location);
-				}
+				createDegree(id16, "cursotecnico", degree.getCODIGOINSTITUICAO(), degree.getNOMEINSTITUICAO(), degree.getANODECONCLUSAO());
 			}
 			for(MetradoProfissionalizanteType degree: f.getMESTRADOPROFISSIONALIZANTE()){
-//				System.out.println(degree.getNOMEINSTITUICAO());
-				try{	
-					result = loadManager.createQuery("from InformacaoAdicionalInstituicaoType WHERE codigoinstituicao = '"+degree.getCODIGOINSTITUICAO()+"'").getResultList();
-					if(result.size() > 0){
-						inst = (InformacaoAdicionalInstituicaoType) result.get(0);
-					}
-				}catch (NoResultException nre){
-					System.out.println("Error!!!!!!");
-					nre.printStackTrace();
-				}
-				if(inst != null){
-//					System.out.println(inst.getSIGLAPAISINSTITUICAO()+" "+inst.getSIGLAUFINSTITUICAO());
-					location = new HashMap<String, String>();
-					location.put("kind", "mestrado-profissionalizante");
-					location.put("city", "");
-					location.put("state", inst.getSIGLAUFINSTITUICAO());
-					location.put("country", inst.getNOMEPAISINSTITUICAO());
-					location.put("codeCountry", inst.getSIGLAPAISINSTITUICAO());
-					location.put("place", degree.getNOMEINSTITUICAO());
-					location.put("codePlace", inst.getSIGLAINSTITUICAO());
-					insertLocation(id16, location);
-//					locations.add(location);
-				}
+				createDegree(id16, "mestradoprofissional", degree.getCODIGOINSTITUICAO(), degree.getNOMEINSTITUICAO(), degree.getANODECONCLUSAO());
 			}
 			for(EnsinoFundamentalPrimeiroGrauType degree: f.getENSINOFUNDAMENTALPRIMEIROGRAU()){
-//				System.out.println(degree.getNOMEINSTITUICAO());
-				try{
-					result = loadManager.createQuery("from InformacaoAdicionalInstituicaoType WHERE codigoinstituicao = '"+degree.getCODIGOINSTITUICAO()+"'").getResultList();
-					if(result.size() > 0){
-						inst = (InformacaoAdicionalInstituicaoType) result.get(0);
-					}
-				}catch (NoResultException nre){
-					System.out.println("Error!!!!!!");
-					nre.printStackTrace();
-				}
-				if(inst != null){
-//					System.out.println(inst.getSIGLAPAISINSTITUICAO()+" "+inst.getSIGLAUFINSTITUICAO());
-					location = new HashMap<String, String>();
-					location.put("kind", "ensino-fundamental-primeiro-grau");
-					location.put("city", "");
-					location.put("state", inst.getSIGLAUFINSTITUICAO());
-					location.put("country", inst.getNOMEPAISINSTITUICAO());
-					location.put("codeCountry", inst.getSIGLAPAISINSTITUICAO());
-					location.put("place", degree.getNOMEINSTITUICAO());
-					location.put("codePlace", inst.getSIGLAINSTITUICAO());
-					insertLocation(id16, location);
-//					locations.add(location);
-				}
+				createDegree(id16, "ensicofundamental1", degree.getCODIGOINSTITUICAO(), degree.getNOMEINSTITUICAO(), degree.getANODECONCLUSAO());
 			}
 			for(EnsinoMedioSegundoGrauType degree: f.getENSINOMEDIOSEGUNDOGRAU()){
-//				System.out.println(degree.getNOMEINSTITUICAO());
-				try{
-					result = loadManager.createQuery("from InformacaoAdicionalInstituicaoType WHERE codigoinstituicao = '"+degree.getCODIGOINSTITUICAO()+"'").getResultList();
-					if(result.size() > 0){
-						inst = (InformacaoAdicionalInstituicaoType) result.get(0);
-					}
-				}catch (NoResultException nre){
-					System.out.println("Error!!!!!!");
-					nre.printStackTrace();
-				}
-				if(inst != null){
-//					System.out.println(inst.getSIGLAPAISINSTITUICAO()+" "+inst.getSIGLAUFINSTITUICAO());
-					location = new HashMap<String, String>();
-					location.put("kind", "ensino-medio-segundo-grau");
-					location.put("city", "");
-					location.put("state", inst.getSIGLAUFINSTITUICAO());
-					location.put("country", inst.getNOMEPAISINSTITUICAO());
-					location.put("codeCountry", inst.getSIGLAPAISINSTITUICAO());
-					location.put("place", degree.getNOMEINSTITUICAO());
-					location.put("codePlace", inst.getSIGLAINSTITUICAO());
-					insertLocation(id16, location);
-//					locations.add(location);
-				}
+				createDegree(id16, "ensinofundamental2", degree.getCODIGOINSTITUICAO(), degree.getNOMEINSTITUICAO(), degree.getANODECONCLUSAO());
 			}
 			for(ResidenciaMedicaType degree: f.getRESIDENCIAMEDICA()){
-//				System.out.println(degree.getNOMEINSTITUICAO());
-				try{
-					result = loadManager.createQuery("from InformacaoAdicionalInstituicaoType WHERE codigoinstituicao = '"+degree.getCODIGOINSTITUICAO()+"'").getResultList();
-					if(result.size() > 0){
-						inst = (InformacaoAdicionalInstituicaoType) result.get(0);
-					}
-				}catch (NoResultException nre){
-					System.out.println("Error!!!!!!");
-					nre.printStackTrace();
-				}
-				if(inst != null){
-//					System.out.println(inst.getSIGLAPAISINSTITUICAO()+" "+inst.getSIGLAUFINSTITUICAO());
-					location = new HashMap<String, String>();
-					location.put("kind", "residencia-medica");
-					location.put("city", "");
-					location.put("state", inst.getSIGLAUFINSTITUICAO());
-					location.put("country", inst.getNOMEPAISINSTITUICAO());
-					location.put("codeCountry", inst.getSIGLAPAISINSTITUICAO());
-					location.put("place", degree.getNOMEINSTITUICAO());
-					location.put("codePlace", inst.getSIGLAINSTITUICAO());
-					insertLocation(id16, location);
-//					locations.add(location);
-				}
+				createDegree(id16, "residencia", degree.getCODIGOINSTITUICAO(), degree.getNOMEINSTITUICAO(), degree.getANODECONCLUSAO());
 			}
 			for(AperfeicoamentoType degree: f.getAPERFEICOAMENTO()){
-//				System.out.println(degree.getNOMEINSTITUICAO());
-				try{
-					result = loadManager.createQuery("from InformacaoAdicionalInstituicaoType WHERE codigoinstituicao = '"+degree.getCODIGOINSTITUICAO()+"'").getResultList();
-					if(result.size() > 0){
-						inst = (InformacaoAdicionalInstituicaoType) result.get(0);
-					}
-				}catch (NoResultException nre){
-					System.out.println("Error!!!!!!");
-					nre.printStackTrace();
-				}
-				if(inst != null){
-//					System.out.println(inst.getSIGLAPAISINSTITUICAO()+" "+inst.getSIGLAUFINSTITUICAO());
-					location = new HashMap<String, String>();
-					location.put("kind", "aperfeicoamento");
-					location.put("city", "");
-					location.put("state", inst.getSIGLAUFINSTITUICAO());
-					location.put("country", inst.getNOMEPAISINSTITUICAO());
-					location.put("codeCountry", inst.getSIGLAPAISINSTITUICAO());
-					location.put("place", degree.getNOMEINSTITUICAO());
-					location.put("codePlace", inst.getSIGLAINSTITUICAO());
-					insertLocation(id16, location);
-//					locations.add(location);
-				}
+				createDegree(id16, "aperfeicoamento", degree.getCODIGOINSTITUICAO(), degree.getNOMEINSTITUICAO(), degree.getANODECONCLUSAO());
 			}
 			
 //			System.out.println("#### Work ####");
 			EnderecoProfissionalType e = dg.getENDERECO().getENDERECOPROFISSIONAL();
 			if(e == null)
 				continue;
-//			System.out.println(e.getCIDADE()+e.getUF()+e.getPAIS()+e.getNOMEINSTITUICAOEMPRESA());
 			location = new HashMap<String, String>();
 			location.put("kind", "work");
 			location.put("city", e.getCIDADE());
 			location.put("state", e.getUF());
 			location.put("country", e.getPAIS());
 			location.put("place", e.getNOMEINSTITUICAOEMPRESA());
-//			locations.add(location);
+			location.put("codePlace", "");
+			location.put("year", "");
 			insertLocation(id16, location);
 			
-//			curriculumLocations.put(id16, locations);
 			System.out.print("!");
-			
 		}
 		
-//		ArrayList<HashMap<String, String>> locationsSet = null;
-//		for(String id16: curriculumLocations.keySet()){
-//			 locationsSet = curriculumLocations.get(id16);
-//			 for(HashMap<String, String> l: locationsSet){
-//				 System.out.println(id16+l.get("kind")+" "+l.get("place")+" "+l.get("city")+" "+l.get("state")+" "+l.get("country"));
-//			 }
-//		}
-		
-		
 	}
-	
+
+	private InformacaoAdicionalInstituicaoType createDegree(String id16,
+			String degree,
+			String idInst, 
+			String nameInst,
+			String year) throws SQLException {
+		List<InformacaoAdicionalInstituicaoType> result = null;
+		InformacaoAdicionalInstituicaoType inst = null;
+		try{
+			result = loadManager.createQuery("from InformacaoAdicionalInstituicaoType WHERE codigoinstituicao = '"+idInst+"'").getResultList();
+			if(result.size() > 0){
+				inst = (InformacaoAdicionalInstituicaoType) result.get(0);
+			}
+		}catch (NoResultException nre){
+			System.out.println("Error!!!!!!");
+			nre.printStackTrace();
+		}
+		if(inst != null){
+			HashMap<String, String> location = new HashMap<String, String>();
+			location.put("kind", degree);
+			location.put("city", "");
+			location.put("state", inst.getSIGLAUFINSTITUICAO());
+			location.put("country", inst.getNOMEPAISINSTITUICAO());
+			location.put("codeCountry", inst.getSIGLAPAISINSTITUICAO());
+			location.put("place", nameInst);
+			location.put("codePlace", inst.getSIGLAINSTITUICAO());
+			location.put("year", year);
+			insertLocation(id16, location);
+		}
+		return inst;
+	}
+
 	private void insertLocation(String id16, HashMap<String, String> location) throws SQLException{
-		String sql = "INSERT INTO locations (id16, kind, place, city, state, country) VALUES (?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO locations (id16, kind, year, place, codeplace, city, state, country) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
 		PreparedStatement stmt = connectionLocation.prepareStatement(sql);
 		stmt.setString(1, id16);
 		stmt.setString(2, location.get("kind"));
-		stmt.setString(3, location.get("place"));
-		stmt.setString(4, location.get("city"));
-		stmt.setString(5, location.get("state"));
-		stmt.setString(6, location.get("country"));
+		stmt.setString(3, location.get("year"));
+		stmt.setString(4, location.get("place"));
+		stmt.setString(5, location.get("codePlace"));
+		stmt.setString(6, location.get("city"));
+		stmt.setString(7, location.get("state"));
+		stmt.setString(8, location.get("country"));
 //		System.out.println(sql);
+//		System.out.println(stmt);
 		stmt.executeUpdate();
 	}
 	
