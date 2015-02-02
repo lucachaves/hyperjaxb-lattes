@@ -2304,7 +2304,7 @@
     <xsd:sequence>
       <xsd:element ref="REGISTRO-OU-PATENTE" minOccurs="0" maxOccurs="unbounded" />
     </xsd:sequence>
-    <xsd:attribute name="FINALIDADE" type="xsd:string" use="optional" />
+    <xsd:attribute name="FINALIDADE" type="extraHugeString" use="optional" />
     <xsd:attribute name="PLATAFORMA" type="xsd:string" use="optional" />
     <xsd:attribute name="AMBIENTE" type="xsd:string" use="optional" />
     <xsd:attribute name="DISPONIBILIDADE" default="NAO_INFORMADO">
@@ -2317,7 +2317,7 @@
       </xsd:simpleType>
     </xsd:attribute>
     <xsd:attribute name="INSTITUICAO-FINANCIADORA" type="xsd:string" use="optional" />
-    <xsd:attribute name="FINALIDADE-INGLES" type="xsd:string" use="optional" />
+    <xsd:attribute name="FINALIDADE-INGLES" type="extraHugeString" use="optional" />
   </xsd:complexType>
 
   <xsd:element name="PRODUTO-TECNOLOGICO" type="ProdutoTecnologicoType"/>
@@ -2404,11 +2404,11 @@
     <xsd:sequence>
       <xsd:element ref="REGISTRO-OU-PATENTE" minOccurs="0" maxOccurs="unbounded" />
     </xsd:sequence>
-    <xsd:attribute name="FINALIDADE" type="xsd:string" use="optional" />
+    <xsd:attribute name="FINALIDADE" type="extraHugeString" use="optional" />
     <xsd:attribute name="DISPONIBILIDADE" type="xsd:string" use="optional" />
     <xsd:attribute name="CIDADE-DO-PRODUTO" type="xsd:string" use="optional" />
     <xsd:attribute name="INSTITUICAO-FINANCIADORA" type="xsd:string" use="optional" />
-    <xsd:attribute name="FINALIDADE-INGLES" type="xsd:string" use="optional" />
+    <xsd:attribute name="FINALIDADE-INGLES" type="extraHugeString" use="optional" />
   </xsd:complexType>
 
   <xsd:element name="PATENTE" type="PatenteType"/>
@@ -2470,10 +2470,10 @@
     <xsd:sequence>
       <xsd:element ref="REGISTRO-OU-PATENTE" minOccurs="0" maxOccurs="unbounded" />
     </xsd:sequence>
-    <xsd:attribute name="FINALIDADE" type="xsd:string" use="optional" />
+    <xsd:attribute name="FINALIDADE" type="extraHugeString" use="optional" />
     <xsd:attribute name="INSTITUICAO-FINANCIADORA" type="xsd:string" use="optional" />
-    <xsd:attribute name="FINALIDADE-INGLES" type="xsd:string" use="optional" />
-    <xsd:attribute name="CATEGORIA" type="xsd:string" use="optional" />
+    <xsd:attribute name="FINALIDADE-INGLES" type="extraHugeString" use="optional" />
+    <xsd:attribute name="CATEGORIA" type="String" use="optional" />
   </xsd:complexType>
 
   <xsd:element name="CULTIVAR-PROTEGIDA" type="CultivarProtegidaType"/>
@@ -2533,9 +2533,9 @@
     <xsd:sequence>
       <xsd:element ref="REGISTRO-OU-PATENTE" minOccurs="0" maxOccurs="unbounded" />
     </xsd:sequence>
-    <xsd:attribute name="FINALIDADE" type="xsd:string" use="optional" />
+    <xsd:attribute name="FINALIDADE" type="extraHugeString" use="optional" />
     <xsd:attribute name="INSTITUICAO-FINANCIADORA" type="xsd:string" use="optional" />
-    <xsd:attribute name="FINALIDADE-INGLES" type="xsd:string" use="optional" />
+    <xsd:attribute name="FINALIDADE-INGLES" type="extraHugeString" use="optional" />
   </xsd:complexType>
 
   <xsd:element name="DESENHO-INDUSTRIAL" type="DesenhoIndustrialType"/>
@@ -2581,9 +2581,9 @@
     <xsd:sequence>
       <xsd:element ref="REGISTRO-OU-PATENTE" minOccurs="0" maxOccurs="unbounded" />
     </xsd:sequence>
-    <xsd:attribute name="FINALIDADE" type="xsd:string" use="optional" />
+    <xsd:attribute name="FINALIDADE" type="extraHugeString" use="optional" />
     <xsd:attribute name="INSTITUICAO-FINANCIADORA" type="xsd:string" use="optional" />
-    <xsd:attribute name="FINALIDADE-INGLES" type="xsd:string" use="optional" />
+    <xsd:attribute name="FINALIDADE-INGLES" type="extraHugeString" use="optional" />
   </xsd:complexType>
 
   <xsd:element name="MARCA" type="MarcaType"/>
@@ -2629,8 +2629,8 @@
     <xsd:sequence>
       <xsd:element ref="REGISTRO-OU-PATENTE" minOccurs="0" maxOccurs="unbounded" />
     </xsd:sequence>
-    <xsd:attribute name="FINALIDADE" type="xsd:string" use="optional" />
-    <xsd:attribute name="FINALIDADE-INGLES" type="xsd:string" use="optional" />
+    <xsd:attribute name="FINALIDADE" type="extraHugeString" use="optional" />
+    <xsd:attribute name="FINALIDADE-INGLES" type="extraHugeString" use="optional" />
     <xsd:attribute name="NATUREZA" type="xsd:string" use="optional" />
   </xsd:complexType>
 
@@ -2677,9 +2677,9 @@
     <xsd:sequence>
       <xsd:element ref="REGISTRO-OU-PATENTE" minOccurs="0" maxOccurs="unbounded" />
     </xsd:sequence>
-    <xsd:attribute name="FINALIDADE" type="xsd:string" use="optional" />
+    <xsd:attribute name="FINALIDADE" type="extraHugeString" use="optional" />
     <xsd:attribute name="INSTITUICAO-FINANCIADORA" type="xsd:string" use="optional" />
-    <xsd:attribute name="FINALIDADE-INGLES" type="xsd:string" use="optional" />
+    <xsd:attribute name="FINALIDADE-INGLES" type="extraHugeString" use="optional" />
   </xsd:complexType>
 
   <xsd:element name="PROCESSOS-OU-TECNICAS" type="ProcessosOuTecnicasType"/>
@@ -2756,11 +2756,11 @@
     <xsd:sequence>
       <xsd:element ref="REGISTRO-OU-PATENTE" minOccurs="0" maxOccurs="unbounded" />
     </xsd:sequence>
-    <xsd:attribute name="FINALIDADE" type="xsd:string" use="optional" />
+    <xsd:attribute name="FINALIDADE" type="extraHugeString" use="optional" />
     <xsd:attribute name="DISPONIBILIDADE" type="xsd:string" use="optional" />
     <xsd:attribute name="INSTITUICAO-FINANCIADORA" type="xsd:string" use="optional" />
     <xsd:attribute name="CIDADE-DO-PROCESSO" type="xsd:string" use="optional" />
-    <xsd:attribute name="FINALIDADE-INGLES" type="xsd:string" use="optional" />
+    <xsd:attribute name="FINALIDADE-INGLES" type="extraHugeString" use="optional" />
   </xsd:complexType>
 
   <xsd:element name="TRABALHO-TECNICO" type="TrabalhoTecnicoType"/>
@@ -2827,13 +2827,13 @@
 
   <xsd:element name="DETALHAMENTO-DO-TRABALHO-TECNICO" type="DetalhamentoDoTrabalhoTecnicoType"/>
   <xsd:complexType name="DetalhamentoDoTrabalhoTecnicoType">
-    <xsd:attribute name="FINALIDADE" type="xsd:string" use="optional" />
+    <xsd:attribute name="FINALIDADE" type="extraHugeString" use="optional" />
     <xsd:attribute name="DURACAO-EM-MESES" type="xsd:string" use="optional" />
     <xsd:attribute name="NUMERO-DE-PAGINAS" type="xsd:string" use="optional" />
     <xsd:attribute name="DISPONIBILIDADE" type="xsd:string" use="optional" />
     <xsd:attribute name="INSTITUICAO-FINANCIADORA" type="xsd:string" use="optional" />
     <xsd:attribute name="CIDADE-DO-TRABALHO" type="xsd:string" use="optional" />
-    <xsd:attribute name="FINALIDADE-INGLES" type="xsd:string" use="optional" />
+    <xsd:attribute name="FINALIDADE-INGLES" type="extraHugeString" use="optional" />
   </xsd:complexType>
 
   <xsd:element name="DEMAIS-TIPOS-DE-PRODUCAO-TECNICA" type="DemaisTiposDeProducaoTecnicaType"/>
@@ -2980,10 +2980,10 @@
   <xsd:complexType name="DetalhamentoDeCartaMapaOuSimilarType">
     <xsd:attribute name="TEMA-DA-CARTA-MAPA-OU-SIMILAR" type="xsd:string" use="optional" />
     <xsd:attribute name="TECNICA-UTILIZADA" type="xsd:string" use="optional" />
-    <xsd:attribute name="FINALIDADE" type="xsd:string" use="optional" />
+    <xsd:attribute name="FINALIDADE" type="extraHugeString" use="optional" />
     <xsd:attribute name="AREA-REPRESENTADA" type="xsd:string" use="optional" />
     <xsd:attribute name="INSTITUICAO-FINANCIADORA" type="xsd:string" use="optional" />
-    <xsd:attribute name="FINALIDADE-INGLES" type="xsd:string" use="optional" />
+    <xsd:attribute name="FINALIDADE-INGLES" type="extraHugeString" use="optional" />
   </xsd:complexType>
 
   <xsd:element name="CURSO-DE-CURTA-DURACAO-MINISTRADO" type="CursoDeCurtaDuracaoMinistradoType"/>
@@ -3133,8 +3133,8 @@
 
   <xsd:element name="DETALHAMENTO-DO-MATERIAL-DIDATICO-OU-INSTRUCIONAL" type="DetalhamentoDoMaterialDidaticoOuInstrucionalType"/>
   <xsd:complexType name="DetalhamentoDoMaterialDidaticoOuInstrucionalType">
-    <xsd:attribute name="FINALIDADE" type="xsd:string" use="optional" />
-    <xsd:attribute name="FINALIDADE-INGLES" type="xsd:string" use="optional" />
+    <xsd:attribute name="FINALIDADE" type="extraHugeString" use="optional" />
+    <xsd:attribute name="FINALIDADE-INGLES" type="extraHugeString" use="optional" />
   </xsd:complexType>
 
   <xsd:element name="EDITORACAO" type="EditoracaoType"/>
@@ -3331,11 +3331,11 @@
 
   <xsd:element name="DETALHAMENTO-DA-MAQUETE" type="DetalhamentoDaMaqueteType"/>
   <xsd:complexType name="DetalhamentoDaMaqueteType">
-    <xsd:attribute name="FINALIDADE" type="xsd:string" use="optional" />
+    <xsd:attribute name="FINALIDADE" type="extraHugeString" use="optional" />
     <xsd:attribute name="OBJETO-REPRESENTADO" type="xsd:string" use="optional" />
     <xsd:attribute name="MATERIAL-UTILIZADO" type="xsd:string" use="optional" />
     <xsd:attribute name="INSTITUICAO-FINANCIADORA" type="xsd:string" use="optional" />
-    <xsd:attribute name="FINALIDADE-INGLES" type="xsd:string" use="optional" />
+    <xsd:attribute name="FINALIDADE-INGLES" type="extraHugeString" use="optional" />
   </xsd:complexType>
 
   <xsd:element name="ORGANIZACAO-DE-EVENTO" type="OrganizacaoDeEventoType"/>
@@ -3491,11 +3491,11 @@
 
   <xsd:element name="DETALHAMENTO-DE-OUTRA-PRODUCAO-TECNICA" type="DetalhamentoDeOutraProducaoTecnicaType"/>
   <xsd:complexType name="DetalhamentoDeOutraProducaoTecnicaType">
-    <xsd:attribute name="FINALIDADE" type="xsd:string" use="optional" />
+    <xsd:attribute name="FINALIDADE" type="extraHugeString" use="optional" />
     <xsd:attribute name="INSTITUICAO-PROMOTORA" type="xsd:string" use="optional" />
     <xsd:attribute name="LOCAL" type="xsd:string" use="optional" />
     <xsd:attribute name="CIDADE" type="xsd:string" use="optional" />
-    <xsd:attribute name="FINALIDADE-INGLES" type="xsd:string" use="optional" />
+    <xsd:attribute name="FINALIDADE-INGLES" type="extraHugeString" use="optional" />
   </xsd:complexType>
 
   <xsd:element name="PROGRAMA-DE-RADIO-OU-TV" type="ProgramaDeRadioOuTvType"/>
@@ -4311,7 +4311,7 @@
 
   <xsd:element name="DETALHAMENTO-DE-SONOPLASTIA" type="DetalhamentoDeSonoplastiaType"/>
   <xsd:complexType name="DetalhamentoDeSonoplastiaType">
-    <xsd:attribute name="FINALIDADE" type="xsd:string" use="optional" />
+    <xsd:attribute name="FINALIDADE" type="extraHugeString" use="optional" />
     <xsd:attribute name="PREMIACAO" type="xsd:string" use="optional" />
   </xsd:complexType>
 
@@ -4885,7 +4885,7 @@
 
   <xsd:element name="DETALHAMENTO-DE-DEMAIS-TRABALHOS" type="DetalhamentoDeDemaisTrabalhosType"/>
   <xsd:complexType name="DetalhamentoDeDemaisTrabalhosType">
-    <xsd:attribute name="FINALIDADE" type="xsd:string" use="optional" />
+    <xsd:attribute name="FINALIDADE" type="extraHugeString" use="optional" />
     <xsd:attribute name="LOCAL" type="xsd:string" use="optional" />
   </xsd:complexType>
 
@@ -6213,12 +6213,12 @@
     <xsd:attribute name="CODIGO-ORGAO" type="xsd:string" use="optional" />
     <xsd:attribute name="NOME-ORGAO" type="xsd:string" use="optional" />
     <xsd:attribute name="CODIGO-CURSO" type="xsd:string" use="optional" />
-    <xsd:attribute name="NOME-CURSO" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-CURSO" type="String" use="optional" />
     <xsd:attribute name="FLAG-BOLSA" type="xsd:string" use="optional" />
     <xsd:attribute name="CODIGO-AGENCIA-FINANCIADORA" type="xsd:string" use="optional" />
     <xsd:attribute name="NOME-DA-AGENCIA" type="xsd:string" use="optional" />
     <xsd:attribute name="NUMERO-ID-ORIENTANDO" type="xsd:string" use="optional" />
-    <xsd:attribute name="NOME-CURSO-INGLES" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-CURSO-INGLES" type="String" use="optional" />
   </xsd:complexType>
 
   <xsd:element name="ORIENTACAO-EM-ANDAMENTO-DE-POS-DOUTORADO" type="OrientacaoEmAndamentoDePosDoutoradoType"/>

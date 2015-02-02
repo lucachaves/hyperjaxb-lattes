@@ -84,7 +84,7 @@ public class ListCurriculum {
 		
 		Class.forName("org.postgresql.Driver");
 		connectionLocation = DriverManager
-				.getConnection("jdbc:postgresql://192.168.56.101:5432/location",
+				.getConnection("jdbc:postgresql://192.168.56.101:5432/latteslocationdump",
 						"postgres", "postgres");
 
 		entityManagerFactory = Persistence.createEntityManagerFactory(
@@ -97,8 +97,8 @@ public class ListCurriculum {
 	}
 
 	public void loadLocation() throws JAXBException, SQLException {		
-//		List<Long> curriculums = loadManager.createQuery("select c.hjid from CurriculoVitaeType c").getResultList();
-		List<Long> curriculums = loadManager.createQuery("select c.hjid from CurriculoVitaeType c").setMaxResults(10).getResultList();
+		List<Long> curriculums = loadManager.createQuery("select c.hjid from CurriculoVitaeType c").getResultList();
+//		List<Long> curriculums = loadManager.createQuery("select c.hjid from CurriculoVitaeType c").setMaxResults(10).getResultList();
 		CurriculoVitaeType curriculum = null;
 		HashMap<String, String> location;
 		DadosGeraisType dg = null;
@@ -186,7 +186,7 @@ public class ListCurriculum {
 			location.put("year", "");
 			insertLocation(id16, location);
 			
-			System.out.print("!");
+			System.out.println(id16);
 		}
 		
 	}
