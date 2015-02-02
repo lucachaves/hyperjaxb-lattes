@@ -97,7 +97,7 @@ public class InsertCurriculum {
             Integer id = rs.getInt("id");
             String  id16 = rs.getString("id16");
             xmls.put(id, id16);
-            System.out.print( " # " );
+//            System.out.print( " # " );
          }
          rs.close();
          stmt.close();
