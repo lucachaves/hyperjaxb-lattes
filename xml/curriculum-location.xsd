@@ -78,10 +78,8 @@
   <xsd:element name="DADOS-GERAIS" type="DadosGeraisType"/>
   <xsd:complexType name="DadosGeraisType">
     <xsd:sequence>
-      <xsd:element ref="OUTRAS-INFORMACOES-RELEVANTES" minOccurs="0" maxOccurs="1" />
       <xsd:element ref="ENDERECO" minOccurs="0" maxOccurs="1" />
       <xsd:element ref="FORMACAO-ACADEMICA-TITULACAO" minOccurs="0" maxOccurs="1" />
-      <xsd:element ref="ATUACOES-PROFISSIONAIS" minOccurs="0" maxOccurs="1" />
       <xsd:element ref="AREAS-DE-ATUACAO" minOccurs="0" maxOccurs="1" />
     </xsd:sequence>
     <xsd:attribute name="NOME-COMPLETO" type="xsd:string" use="required" />
@@ -639,6 +637,36 @@
     <xsd:attribute name="TITULO-DO-TRABALHO" type="String" use="optional" />
     <xsd:attribute name="TITULO-DO-TRABALHO-INGLES" type="String" use="optional" />
     <xsd:attribute name="NOME-CURSO-INGLES" type="xsd:string" use="optional" />
+  </xsd:complexType>
+
+  <xsd:element name="AREAS-DE-ATUACAO" type="AreasDeAtuacaoType"/>
+  <xsd:complexType name="AreasDeAtuacaoType">
+    <xsd:sequence>
+      <xsd:element ref="AREA-DE-ATUACAO" minOccurs="0" maxOccurs="unbounded" />
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:element name="AREA-DE-ATUACAO" type="AreaDeAtaucaoType"/>
+  <xsd:complexType name="AreaDeAtaucaoType">
+    <xsd:attribute name="SEQUENCIA-AREA-DE-ATUACAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-GRANDE-AREA-DO-CONHECIMENTO" use="optional">
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="OUTROS" />
+          <xsd:enumeration value="LINGUISTICA_LETRAS_E_ARTES" />
+          <xsd:enumeration value="CIENCIAS_HUMANAS" />
+          <xsd:enumeration value="CIENCIAS_SOCIAIS_APLICADAS" />
+          <xsd:enumeration value="CIENCIAS_AGRARIAS" />
+          <xsd:enumeration value="CIENCIAS_DA_SAUDE" />
+          <xsd:enumeration value="ENGENHARIAS" />
+          <xsd:enumeration value="CIENCIAS_BIOLOGICAS" />
+          <xsd:enumeration value="CIENCIAS_EXATAS_E_DA_TERRA" />
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:attribute>
+    <xsd:attribute name="NOME-DA-AREA-DO-CONHECIMENTO" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-DA-SUB-AREA-DO-CONHECIMENTO" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-DA-ESPECIALIDADE" type="xsd:string" use="optional" />
   </xsd:complexType>
 
   <xsd:element name="DADOS-COMPLEMENTARES" type="DadosComplementaresType"/>
