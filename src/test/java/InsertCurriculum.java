@@ -164,7 +164,10 @@ public class InsertCurriculum {
 			if(hasCurriculum(id16))
 				continue;
 			xml = getXml(id);
-			System.out.println(countXml +"/"+ xmlsSize +" "+(new DecimalFormat("#0.00").format(percentage)) +"% - "+ id16);
+			if(countXml % 100 == 0)
+				System.out.println(" ! ");
+			if(countXml % 500 == 0)
+				System.out.println("\n"+countXml +"/"+ xmlsSize +" "+(new DecimalFormat("#0.00").format(percentage)) +"% - "+ id16);
 			try {
 				unmarshaller = context.createUnmarshaller();
 	//			final Object object = unmarshaller.unmarshal(new File("src/test/samples/curriculum.xml"));

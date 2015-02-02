@@ -97,8 +97,8 @@ public class ListCurriculum {
 	}
 
 	public void loadLocation() throws JAXBException, SQLException {		
-		List<Long> curriculums = loadManager.createQuery("select c.hjid from CurriculoVitaeType c").getResultList();
-//		List<Long> curriculums = loadManager.createQuery("select c.hjid from CurriculoVitaeType c").setMaxResults(10).getResultList();
+//		List<Long> curriculums = loadManager.createQuery("select c.hjid from CurriculoVitaeType c").getResultList();
+		List<Long> curriculums = loadManager.createQuery("select c.hjid from CurriculoVitaeType c").setMaxResults(50).getResultList();
 		CurriculoVitaeType curriculum = null;
 		HashMap<String, String> location;
 		DadosGeraisType dg = null;
@@ -127,6 +127,7 @@ public class ListCurriculum {
 			location.put("city", dg.getCIDADENASCIMENTO());
 			location.put("state", dg.getUFNASCIMENTO());
 			location.put("country", dg.getPAISDENASCIMENTO());
+			location.put("codeCountry", dg.getSIGLAPAISNACIONALIDADE());
 			location.put("nacionality", dg.getNACIONALIDADE());
 			location.put("codePlace", "");
 			location.put("year", "");
@@ -181,6 +182,7 @@ public class ListCurriculum {
 			location.put("city", e.getCIDADE());
 			location.put("state", e.getUF());
 			location.put("country", e.getPAIS());
+			location.put("codeCountry", "");
 			location.put("place", e.getNOMEINSTITUICAOEMPRESA());
 			location.put("codePlace", "");
 			location.put("year", "");
@@ -223,7 +225,7 @@ public class ListCurriculum {
 	}
 
 	private void insertLocation(String id16, HashMap<String, String> location) throws SQLException{
-		String sql = "INSERT INTO locations (id16, kind, year, place, codeplace, city, state, country) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO locations (id16, kind, year, place, codeplace, city, state, country, codecountry) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		PreparedStatement stmt = connectionLocation.prepareStatement(sql);
 		stmt.setString(1, id16);
 		stmt.setString(2, location.get("kind"));
@@ -233,6 +235,7 @@ public class ListCurriculum {
 		stmt.setString(6, location.get("city"));
 		stmt.setString(7, location.get("state"));
 		stmt.setString(8, location.get("country"));
+		stmt.setString(9, location.get("codeCountry"));
 //		System.out.println(sql);
 //		System.out.println(stmt);
 		stmt.executeUpdate();
