@@ -33,6 +33,8 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.transform.dom.DOMResult;
 
+import org.apache.commons.lang3.StringUtils;
+
 import junit.framework.TestCase;
 
 public class InsertCurriculum {
@@ -91,8 +93,15 @@ public class InsertCurriculum {
 	private HashMap<Integer, String> getXmlIds() throws SQLException{
 		HashMap<Integer, String> xmls = new HashMap<Integer, String>();
 		
-		Statement stmt = connectionLattesXML.createStatement();
-		ResultSet rs = stmt.executeQuery( "SELECT curriculums.id, curriculums.id16 FROM public.curriculums WHERE curriculums.degree ILIKE '%doutorado%' ORDER BY curriculums.id DESC;" );
+		Statement stmt = connectionLattesRDB.createStatement();
+		ResultSet rs = stmt.executeQuery("");
+		List<String> excludeIds = new ArrayList<String>();
+		while(rs.next()){
+			excludeIds.add(rs.getString("numeroidentificador"));
+		}
+		String sql = "SELECT curriculums.id, curriculums.id16 FROM public.curriculums WHERE curriculums.degree ILIKE '%doutorado%' AND curriculums.id16 NOT IN ('"+StringUtils.join(excludeIds, "', '")+"') ORDER BY curriculums.id DESC;";
+		stmt = connectionLattesXML.createStatement();
+		rs = stmt.executeQuery(sql);
 		while ( rs.next() ) {
             Integer id = rs.getInt("id");
             String  id16 = rs.getString("id16");
