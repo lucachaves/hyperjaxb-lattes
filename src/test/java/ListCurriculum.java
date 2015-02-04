@@ -98,7 +98,7 @@ public class ListCurriculum {
 
 	public void loadLocation() throws JAXBException, SQLException {		
 //		List<Long> curriculums = loadManager.createQuery("select c.hjid from CurriculoVitaeType c").getResultList();
-		List<Long> curriculums = loadManager.createQuery("select c.hjid from CurriculoVitaeType c").setMaxResults(50).getResultList();
+		List<Long> curriculums = loadManager.createQuery("select c.hjid from CurriculoVitaeType c").setMaxResults(500).getResultList();
 		CurriculoVitaeType curriculum = null;
 		HashMap<String, String> location;
 		DadosGeraisType dg = null;
@@ -123,13 +123,15 @@ public class ListCurriculum {
 //			System.out.println("#### Birth ####");
 			location = new HashMap<String, String>();
 			location.put("kind", "birth");
-			location.put("place", "");
 			location.put("city", dg.getCIDADENASCIMENTO());
 			location.put("state", dg.getUFNASCIMENTO());
 			location.put("country", dg.getPAISDENASCIMENTO());
 			location.put("codeCountry", dg.getSIGLAPAISNACIONALIDADE());
 			location.put("nacionality", dg.getNACIONALIDADE());
+			location.put("place", "");
 			location.put("codePlace", "");
+			location.put("course", "");
+			location.put("codeCourse", "");
 			location.put("year", "");
 			insertLocation(id16, location);
 			
@@ -137,40 +139,40 @@ public class ListCurriculum {
 			for(GraduacaoType degree: f.getGRADUACAO()){
 //				String codCourse = degree.getCODIGOCURSO();
 //				InformacaoAdicionalCursoType course
-				createDegree(id16, "graducao", degree.getCODIGOINSTITUICAO(), degree.getNOMEINSTITUICAO(), degree.getANODECONCLUSAO());
+				createDegree(id16, "graducao", degree.getCODIGOINSTITUICAO(), degree.getNOMEINSTITUICAO(), degree.getNOMECURSO(), degree.getCODIGOCURSOCAPES(), degree.getANODECONCLUSAO());
 			}
 			for(EspecializacaoType degree: f.getESPECIALIZACAO()){
-				createDegree(id16, "especializacao", degree.getCODIGOINSTITUICAO(), degree.getNOMEINSTITUICAO(), degree.getANODECONCLUSAO());
+				createDegree(id16, "especializacao", degree.getCODIGOINSTITUICAO(), degree.getNOMEINSTITUICAO(), degree.getNOMECURSO(), "", degree.getANODECONCLUSAO());
 			}
 			for(MestradoType degree: f.getMESTRADO()){
-				createDegree(id16, "mestrado", degree.getCODIGOINSTITUICAO(), degree.getNOMEINSTITUICAO(), degree.getANODECONCLUSAO());
+				createDegree(id16, "mestrado", degree.getCODIGOINSTITUICAO(), degree.getNOMEINSTITUICAO(), degree.getNOMECURSO(), degree.getCODIGOCURSOCAPES(), degree.getANODECONCLUSAO());
 			}
 			for(DoutoradoType degree: f.getDOUTORADO()){
-				createDegree(id16, "doutorado", degree.getCODIGOINSTITUICAO(), degree.getNOMEINSTITUICAO(), degree.getANODECONCLUSAO());
+				createDegree(id16, "doutorado", degree.getCODIGOINSTITUICAO(), degree.getNOMEINSTITUICAO(), degree.getNOMECURSO(), degree.getCODIGOCURSOCAPES(), degree.getANODECONCLUSAO());
 			}
 			for(PosDoutoradoType degree: f.getPOSDOUTORADO()){
-				createDegree(id16, "posdoutorado", degree.getCODIGOINSTITUICAO(), degree.getNOMEINSTITUICAO(), degree.getANODECONCLUSAO());
+				createDegree(id16, "posdoutorado", degree.getCODIGOINSTITUICAO(), degree.getNOMEINSTITUICAO(), degree.getNOMECURSOINGLES(), degree.getCODIGOCURSOCAPES(), degree.getANODECONCLUSAO());
 			}
 			for(LivreDocenciaType degree: f.getLIVREDOCENCIA()){
-				createDegree(id16, "livredocencia", degree.getCODIGOINSTITUICAO(), degree.getNOMEINSTITUICAO(), degree.getANODEOBTENCAODOTITULO());
+				createDegree(id16, "livredocencia", degree.getCODIGOINSTITUICAO(), degree.getNOMEINSTITUICAO(), "", "", degree.getANODEOBTENCAODOTITULO());
 			}
 			for(CursoTecnicoProfisonalizanteType degree: f.getCURSOTECNICOPROFISSIONALIZANTE()){
-				createDegree(id16, "cursotecnico", degree.getCODIGOINSTITUICAO(), degree.getNOMEINSTITUICAO(), degree.getANODECONCLUSAO());
+				createDegree(id16, "cursotecnico", degree.getCODIGOINSTITUICAO(), degree.getNOMEINSTITUICAO(), degree.getNOMECURSO(), "", degree.getANODECONCLUSAO());
 			}
 			for(MetradoProfissionalizanteType degree: f.getMESTRADOPROFISSIONALIZANTE()){
-				createDegree(id16, "mestradoprofissional", degree.getCODIGOINSTITUICAO(), degree.getNOMEINSTITUICAO(), degree.getANODECONCLUSAO());
+				createDegree(id16, "mestradoprofissional", degree.getCODIGOINSTITUICAO(), degree.getNOMEINSTITUICAO(), degree.getNOMECURSO(), degree.getCODIGOCURSOCAPES(), degree.getANODECONCLUSAO());
 			}
 			for(EnsinoFundamentalPrimeiroGrauType degree: f.getENSINOFUNDAMENTALPRIMEIROGRAU()){
-				createDegree(id16, "ensicofundamental1", degree.getCODIGOINSTITUICAO(), degree.getNOMEINSTITUICAO(), degree.getANODECONCLUSAO());
+				createDegree(id16, "ensicofundamental1", degree.getCODIGOINSTITUICAO(), degree.getNOMEINSTITUICAO(), "", "", degree.getANODECONCLUSAO());
 			}
 			for(EnsinoMedioSegundoGrauType degree: f.getENSINOMEDIOSEGUNDOGRAU()){
-				createDegree(id16, "ensinofundamental2", degree.getCODIGOINSTITUICAO(), degree.getNOMEINSTITUICAO(), degree.getANODECONCLUSAO());
+				createDegree(id16, "ensinofundamental2", degree.getCODIGOINSTITUICAO(), degree.getNOMEINSTITUICAO(), "", "", degree.getANODECONCLUSAO());
 			}
 			for(ResidenciaMedicaType degree: f.getRESIDENCIAMEDICA()){
-				createDegree(id16, "residencia", degree.getCODIGOINSTITUICAO(), degree.getNOMEINSTITUICAO(), degree.getANODECONCLUSAO());
+				createDegree(id16, "residencia", degree.getCODIGOINSTITUICAO(), degree.getNOMEINSTITUICAO(), "", "", degree.getANODECONCLUSAO());
 			}
 			for(AperfeicoamentoType degree: f.getAPERFEICOAMENTO()){
-				createDegree(id16, "aperfeicoamento", degree.getCODIGOINSTITUICAO(), degree.getNOMEINSTITUICAO(), degree.getANODECONCLUSAO());
+				createDegree(id16, "aperfeicoamento", degree.getCODIGOINSTITUICAO(), degree.getNOMEINSTITUICAO(), degree.getNOMECURSO(), "", degree.getANODECONCLUSAO());
 			}
 			
 //			System.out.println("#### Work ####");
@@ -185,6 +187,8 @@ public class ListCurriculum {
 			location.put("codeCountry", "");
 			location.put("place", e.getNOMEINSTITUICAOEMPRESA());
 			location.put("codePlace", "");
+			location.put("course", "");
+			location.put("codeCourse", "");
 			location.put("year", "");
 			insertLocation(id16, location);
 			
@@ -197,6 +201,8 @@ public class ListCurriculum {
 			String degree,
 			String idInst, 
 			String nameInst,
+			String course,
+			String codeCourse,
 			String year) throws SQLException {
 		List<InformacaoAdicionalInstituicaoType> result = null;
 		InformacaoAdicionalInstituicaoType inst = null;
@@ -216,6 +222,8 @@ public class ListCurriculum {
 			location.put("state", inst.getSIGLAUFINSTITUICAO());
 			location.put("country", inst.getNOMEPAISINSTITUICAO());
 			location.put("codeCountry", inst.getSIGLAPAISINSTITUICAO());
+			location.put("course", course);
+			location.put("codeCourse", codeCourse);
 			location.put("place", nameInst);
 			location.put("codePlace", inst.getSIGLAINSTITUICAO());
 			location.put("year", year);
@@ -225,17 +233,19 @@ public class ListCurriculum {
 	}
 
 	private void insertLocation(String id16, HashMap<String, String> location) throws SQLException{
-		String sql = "INSERT INTO locations (id16, kind, year, place, codeplace, city, state, country, codecountry) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO locations (id16, kind, year, place, codeplace, course, codecourse, city, state, country, codecountry) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		PreparedStatement stmt = connectionLocation.prepareStatement(sql);
 		stmt.setString(1, id16);
 		stmt.setString(2, location.get("kind"));
 		stmt.setString(3, location.get("year"));
 		stmt.setString(4, location.get("place"));
 		stmt.setString(5, location.get("codePlace"));
-		stmt.setString(6, location.get("city"));
-		stmt.setString(7, location.get("state"));
-		stmt.setString(8, location.get("country"));
-		stmt.setString(9, location.get("codeCountry"));
+		stmt.setString(6, location.get("course"));
+		stmt.setString(7, location.get("codeCourse"));
+		stmt.setString(8, location.get("city"));
+		stmt.setString(9, location.get("state"));
+		stmt.setString(10, location.get("country"));
+		stmt.setString(11, location.get("codeCountry"));
 //		System.out.println(sql);
 //		System.out.println(stmt);
 		stmt.executeUpdate();

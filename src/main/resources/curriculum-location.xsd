@@ -1,0 +1,765 @@
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+  <xsd:simpleType name="DDMMAAAA">
+    <xsd:restriction base="xsd:string">
+      <xsd:pattern value="\d{8}"/>
+      <xsd:length value="8"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="HHMMSS">
+    <xsd:restriction base="xsd:string">
+      <xsd:pattern value="\d{6}"/>
+      <xsd:length value="6"/>
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="tinyString">
+    <xsd:restriction base="xsd:string">
+      <xsd:maxLength value="100" />
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="smallString">
+    <xsd:restriction base="xsd:string">
+      <xsd:maxLength value="255" />
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="String">
+    <xsd:restriction base="xsd:string">
+      <xsd:maxLength value="500" />
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="bigString">
+    <xsd:restriction base="xsd:string">
+      <xsd:maxLength value="1000" />
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="longString">
+    <xsd:restriction base="xsd:string">
+      <xsd:maxLength value="1500" />
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="extraString">
+    <xsd:restriction base="xsd:string">
+      <xsd:maxLength value="3000" />
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="hugeString">
+    <xsd:restriction base="xsd:string">
+      <xsd:maxLength value="6000" />
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:simpleType name="extraHugeString">
+    <xsd:restriction base="xsd:string">
+      <xsd:maxLength value="10000" />
+    </xsd:restriction>
+  </xsd:simpleType>
+
+  <xsd:element name="CURRICULO-VITAE" type="CurriculoVitaeType"/>
+  <xsd:complexType name="CurriculoVitaeType">
+    <xsd:sequence>
+      <xsd:element ref="DADOS-GERAIS" />
+      <xsd:element ref="DADOS-COMPLEMENTARES" minOccurs="0" maxOccurs="1" />
+    </xsd:sequence>
+    <xsd:attribute name="NUMERO-IDENTIFICADOR" type="xsd:string" use="optional" />
+    <xsd:attribute name="FORMATO-DATA-ATUALIZACAO" type="DDMMAAAA" />
+    <xsd:attribute name="DATA-ATUALIZACAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="FORMATO-HORA-ATUALIZACAO" type="HHMMSS" />
+    <xsd:attribute name="HORA-ATUALIZACAO" type="xsd:string" use="optional" />
+  </xsd:complexType>
+
+  <xsd:element name="DADOS-GERAIS" type="DadosGeraisType"/>
+  <xsd:complexType name="DadosGeraisType">
+    <xsd:sequence>
+      <xsd:element ref="ENDERECO" minOccurs="0" maxOccurs="1" />
+      <xsd:element ref="FORMACAO-ACADEMICA-TITULACAO" minOccurs="0" maxOccurs="1" />
+      <xsd:element ref="AREAS-DE-ATUACAO" minOccurs="0" maxOccurs="1" />
+    </xsd:sequence>
+    <xsd:attribute name="NOME-COMPLETO" type="xsd:string" use="required" />
+    <xsd:attribute name="NOME-EM-CITACOES-BIBLIOGRAFICAS" type="extraString" use="required" />
+    <xsd:attribute name="NACIONALIDADE" type="xsd:string" use="required" />
+    <xsd:attribute name="PAIS-DE-NASCIMENTO" type="xsd:string" use="optional" />
+    <xsd:attribute name="UF-NASCIMENTO" type="xsd:string" use="optional" />
+    <xsd:attribute name="CIDADE-NASCIMENTO" type="xsd:string" use="optional" />
+    <xsd:attribute name="FORMATO-DATA-DE-NASCIMENTO" type="DDMMAAAA" />
+    <xsd:attribute name="DATA-NASCIMENTO" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-DO-PAI" type="xsd:string" use="optional" />
+    <xsd:attribute name="SIGLA-PAIS-NACIONALIDADE" type="xsd:string" use="optional" />
+    <xsd:attribute name="PAIS-DE-NACIONALIDADE" type="xsd:string" use="optional" />
+  </xsd:complexType>
+
+  <xsd:element name="ENDERECO" type="EnderecoType"/>
+  <xsd:complexType name="EnderecoType">
+    <xsd:sequence>
+      <xsd:element ref="ENDERECO-PROFISSIONAL" minOccurs="0" maxOccurs="1" />
+      <xsd:element ref="ENDERECO-RESIDENCIAL" minOccurs="0" maxOccurs="1" />
+    </xsd:sequence>
+    <xsd:attribute name="FLAG-DE-PREFERENCIA" use="optional">
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="ENDERECO_INSTITUCIONAL" />
+          <xsd:enumeration value="ENDERECO_RESIDENCIAL" />
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:attribute>
+  </xsd:complexType>
+
+  <xsd:element name="ENDERECO-PROFISSIONAL" type="EnderecoProfissionalType"/>
+  <xsd:complexType name="EnderecoProfissionalType">
+    <xsd:attribute name="CODIGO-INSTITUICAO-EMPRESA" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-INSTITUICAO-EMPRESA" type="xsd:string" use="optional" />
+    <xsd:attribute name="CODIGO-ORGAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-ORGAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="CODIGO-UNIDADE" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-UNIDADE" type="xsd:string" use="optional" />
+    <xsd:attribute name="LOGRADOURO-COMPLEMENTO" type="xsd:string" use="optional" />
+    <xsd:attribute name="PAIS" type="xsd:string" use="optional" />
+    <xsd:attribute name="UF" type="xsd:string" use="optional" />
+    <xsd:attribute name="CEP" type="xsd:string" use="optional" />
+    <xsd:attribute name="CIDADE" type="xsd:string" use="optional" />
+    <xsd:attribute name="BAIRRO" type="xsd:string" use="optional" />
+    <xsd:attribute name="DDD" type="xsd:string" use="optional" />
+    <xsd:attribute name="TELEFONE" type="xsd:string" use="optional" />
+    <xsd:attribute name="RAMAL" type="xsd:string" use="optional" />
+    <xsd:attribute name="FAX" type="xsd:string" use="optional" />
+    <xsd:attribute name="CAIXA-POSTAL" type="xsd:string" use="optional" />
+    <xsd:attribute name="E-MAIL" type="xsd:string" use="optional" />
+    <xsd:attribute name="HOME-PAGE" type="xsd:string" use="optional" />
+  </xsd:complexType>
+
+  <xsd:element name="ENDERECO-RESIDENCIAL" type="EnderecoResidencialType"/>
+  <xsd:complexType name="EnderecoResidencialType">
+    <xsd:attribute name="LOGRADOURO" type="xsd:string" use="optional" />
+    <xsd:attribute name="PAIS" type="xsd:string" use="optional" />
+    <xsd:attribute name="UF" type="xsd:string" use="optional" />
+    <xsd:attribute name="CEP" type="xsd:string" use="optional" />
+    <xsd:attribute name="CIDADE" type="xsd:string" use="optional" />
+    <xsd:attribute name="BAIRRO" type="xsd:string" use="optional" />
+    <xsd:attribute name="DDD" type="xsd:string" use="optional" />
+    <xsd:attribute name="TELEFONE" type="xsd:string" use="optional" />
+    <xsd:attribute name="RAMAL" type="xsd:string" use="optional" />
+    <xsd:attribute name="FAX" type="xsd:string" use="optional" />
+    <xsd:attribute name="CAIXA-POSTAL" type="xsd:string" use="optional" />
+    <xsd:attribute name="E-MAIL" type="xsd:string" use="optional" />
+    <xsd:attribute name="HOME-PAGE" type="xsd:string" use="optional" />
+  </xsd:complexType>
+
+  <xsd:element name="PALAVRAS-CHAVE" type="PalavrasChaveType"/>
+  <xsd:complexType name="PalavrasChaveType">
+    <xsd:attribute name="PALAVRA-CHAVE-1" type="xsd:string" use="optional" />
+    <xsd:attribute name="PALAVRA-CHAVE-2" type="xsd:string" use="optional" />
+    <xsd:attribute name="PALAVRA-CHAVE-3" type="xsd:string" use="optional" />
+    <xsd:attribute name="PALAVRA-CHAVE-4" type="xsd:string" use="optional" />
+    <xsd:attribute name="PALAVRA-CHAVE-5" type="xsd:string" use="optional" />
+    <xsd:attribute name="PALAVRA-CHAVE-6" type="xsd:string" use="optional" />
+  </xsd:complexType>
+
+  <xsd:element name="AREAS-DO-CONHECIMENTO" type="AreaDoConhecimentoType"/>
+  <xsd:complexType name="AreaDoConhecimentoType">
+    <xsd:sequence>
+      <xsd:element ref="AREA-DO-CONHECIMENTO-1" minOccurs="0" maxOccurs="1" />
+      <xsd:element ref="AREA-DO-CONHECIMENTO-2" minOccurs="0" maxOccurs="1" />
+      <xsd:element ref="AREA-DO-CONHECIMENTO-3" minOccurs="0" maxOccurs="1" />
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:element name="AREA-DO-CONHECIMENTO-1" type="AreaDoConhecimento1Type"/>
+  <xsd:complexType name="AreaDoConhecimento1Type">
+    <xsd:attribute name="NOME-GRANDE-AREA-CONHECIMENTO" use="optional">
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="OUTROS" />
+          <xsd:enumeration value="LINGUISTICA_LETRAS_E_ARTES" />
+          <xsd:enumeration value="CIENCIAS_HUMANAS" />
+          <xsd:enumeration value="CIENCIAS_SOCIAIS_APLICADAS" />
+          <xsd:enumeration value="CIENCIAS_AGRARIAS" />
+          <xsd:enumeration value="CIENCIAS_DA_SAUDE" />
+          <xsd:enumeration value="ENGENHARIAS" />
+          <xsd:enumeration value="CIENCIAS_BIOLOGICAS" />
+          <xsd:enumeration value="CIENCIAS_EXATAS_E_DA_TERRA" />
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:attribute>
+    <xsd:attribute name="NOME-DA-AREA-DO-CONHECIMENTO" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-SUB-AREA-CONHECIMENTO" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-DA-ESPECIALIDADE" type="xsd:string" use="optional" />
+  </xsd:complexType>
+
+  <xsd:element name="AREA-DO-CONHECIMENTO-2" type="AreaDoConhecimento2Type"/>
+  <xsd:complexType name="AreaDoConhecimento2Type">
+    <xsd:attribute name="NOME-GRANDE-AREA-CONHECIMENTO" use="optional">
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="OUTROS" />
+          <xsd:enumeration value="LINGUISTICA_LETRAS_E_ARTES" />
+          <xsd:enumeration value="CIENCIAS_HUMANAS" />
+          <xsd:enumeration value="CIENCIAS_SOCIAIS_APLICADAS" />
+          <xsd:enumeration value="CIENCIAS_AGRARIAS" />
+          <xsd:enumeration value="CIENCIAS_DA_SAUDE" />
+          <xsd:enumeration value="ENGENHARIAS" />
+          <xsd:enumeration value="CIENCIAS_BIOLOGICAS" />
+          <xsd:enumeration value="CIENCIAS_EXATAS_E_DA_TERRA" />
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:attribute>
+    <xsd:attribute name="NOME-DA-AREA-DO-CONHECIMENTO" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-SUB-AREA-CONHECIMENTO" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-DA-ESPECIALIDADE" type="xsd:string" use="optional" />
+  </xsd:complexType>
+
+  <xsd:element name="AREA-DO-CONHECIMENTO-3" type="AreaDoConhecimento3Type"/>
+  <xsd:complexType name="AreaDoConhecimento3Type">
+    <xsd:attribute name="NOME-GRANDE-AREA-CONHECIMENTO" use="optional">
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="OUTROS" />
+          <xsd:enumeration value="LINGUISTICA_LETRAS_E_ARTES" />
+          <xsd:enumeration value="CIENCIAS_HUMANAS" />
+          <xsd:enumeration value="CIENCIAS_SOCIAIS_APLICADAS" />
+          <xsd:enumeration value="CIENCIAS_AGRARIAS" />
+          <xsd:enumeration value="CIENCIAS_DA_SAUDE" />
+          <xsd:enumeration value="ENGENHARIAS" />
+          <xsd:enumeration value="CIENCIAS_BIOLOGICAS" />
+          <xsd:enumeration value="CIENCIAS_EXATAS_E_DA_TERRA" />
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:attribute>
+    <xsd:attribute name="NOME-DA-AREA-DO-CONHECIMENTO" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-SUB-AREA-CONHECIMENTO" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-DA-ESPECIALIDADE" type="xsd:string" use="optional" />
+  </xsd:complexType>
+
+  <xsd:element name="SETORES-DE-ATIVIDADE" type="SetoresDeAtividadeType"/>
+  <xsd:complexType name="SetoresDeAtividadeType">
+    <xsd:attribute name="SETOR-DE-ATIVIDADE-1" type="xsd:string" use="optional" />
+    <xsd:attribute name="SETOR-DE-ATIVIDADE-2" type="xsd:string" use="optional" />
+    <xsd:attribute name="SETOR-DE-ATIVIDADE-3" type="xsd:string" use="optional" />
+  </xsd:complexType>
+
+  <xsd:element name="FORMACAO-ACADEMICA-TITULACAO" type="FormacaoAcademicaTitulacaoType"/>
+  <xsd:complexType name="FormacaoAcademicaTitulacaoType">
+    <xsd:sequence>
+      <xsd:element ref="GRADUACAO" minOccurs="0" maxOccurs="unbounded" />
+      <xsd:element ref="ESPECIALIZACAO" minOccurs="0" maxOccurs="unbounded" />
+      <xsd:element ref="MESTRADO" minOccurs="0" maxOccurs="unbounded" />
+      <xsd:element ref="DOUTORADO" minOccurs="0" maxOccurs="unbounded" />
+      <xsd:element ref="POS-DOUTORADO" minOccurs="0" maxOccurs="unbounded" />
+      <xsd:element ref="LIVRE-DOCENCIA" minOccurs="0" maxOccurs="unbounded" />
+      <xsd:element ref="CURSO-TECNICO-PROFISSIONALIZANTE" minOccurs="0" maxOccurs="unbounded" />
+      <xsd:element ref="MESTRADO-PROFISSIONALIZANTE" minOccurs="0" maxOccurs="unbounded" />
+      <xsd:element ref="ENSINO-FUNDAMENTAL-PRIMEIRO-GRAU" minOccurs="0" maxOccurs="unbounded" />
+      <xsd:element ref="ENSINO-MEDIO-SEGUNDO-GRAU" minOccurs="0" maxOccurs="unbounded" />
+      <xsd:element ref="RESIDENCIA-MEDICA" minOccurs="0" maxOccurs="unbounded" />
+      <xsd:element ref="APERFEICOAMENTO" minOccurs="0" maxOccurs="unbounded" />
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:element name="CURSO-TECNICO-PROFISSIONALIZANTE" type="CursoTecnicoProfisonalizanteType"/>
+  <xsd:complexType name="CursoTecnicoProfisonalizanteType">
+    <xsd:attribute name="SEQUENCIA-FORMACAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="NIVEL" type="xsd:string" use="optional" />
+    <xsd:attribute name="CODIGO-INSTITUICAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-INSTITUICAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="CODIGO-ORGAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-ORGAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="CODIGO-CURSO" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-CURSO" type="xsd:string" use="optional" />
+    <xsd:attribute name="STATUS-DO-CURSO" use="optional">
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="EM_ANDAMENTO" />
+          <xsd:enumeration value="CONCLUIDO" />
+          <xsd:enumeration value="INCOMPLETO" />
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:attribute>
+    <xsd:attribute name="ANO-DE-INICIO" type="xsd:string" use="optional" />
+    <xsd:attribute name="ANO-DE-CONCLUSAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="FLAG-BOLSA" type="xsd:string" use="optional" />
+    <xsd:attribute name="CODIGO-AGENCIA-FINANCIADORA" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-AGENCIA" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-CURSO-INGLES" type="xsd:string" use="optional" />
+  </xsd:complexType>
+
+  <xsd:element name="ENSINO-FUNDAMENTAL-PRIMEIRO-GRAU" type="EnsinoFundamentalPrimeiroGrauType"/>
+  <xsd:complexType name="EnsinoFundamentalPrimeiroGrauType">
+    <xsd:attribute name="SEQUENCIA-FORMACAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="NIVEL" type="xsd:string" use="optional" />
+    <xsd:attribute name="CODIGO-INSTITUICAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-INSTITUICAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="STATUS-DO-CURSO" use="optional">
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="EM_ANDAMENTO" />
+          <xsd:enumeration value="CONCLUIDO" />
+          <xsd:enumeration value="INCOMPLETO" />
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:attribute>
+    <xsd:attribute name="ANO-DE-INICIO" type="xsd:string" use="optional" />
+    <xsd:attribute name="ANO-DE-CONCLUSAO" type="xsd:string" use="optional" />
+  </xsd:complexType>
+
+  <xsd:element name="ENSINO-MEDIO-SEGUNDO-GRAU" type="EnsinoMedioSegundoGrauType"/>
+  <xsd:complexType name="EnsinoMedioSegundoGrauType">
+    <xsd:attribute name="SEQUENCIA-FORMACAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="NIVEL" type="xsd:string" use="optional" />
+    <xsd:attribute name="CODIGO-INSTITUICAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-INSTITUICAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="STATUS-DO-CURSO" use="optional">
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="EM_ANDAMENTO" />
+          <xsd:enumeration value="CONCLUIDO" />
+          <xsd:enumeration value="INCOMPLETO" />
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:attribute>
+    <xsd:attribute name="ANO-DE-INICIO" type="xsd:string" use="optional" />
+    <xsd:attribute name="ANO-DE-CONCLUSAO" type="xsd:string" use="optional" />
+  </xsd:complexType>
+
+  <xsd:element name="GRADUACAO" type="GraduacaoType"/>
+  <xsd:complexType name="GraduacaoType">
+    <xsd:attribute name="SEQUENCIA-FORMACAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="NIVEL" type="xsd:string" use="optional" />
+    <xsd:attribute name="TITULO-TRABALHO-CONCLUSAO-CURSO" type="String" use="optional" />
+    <xsd:attribute name="NOME-DO-ORIENTADOR" type="xsd:string" use="optional" />
+    <xsd:attribute name="CODIGO-INSTITUICAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-INSTITUICAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="CODIGO-ORGAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-ORGAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="CODIGO-CURSO" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-CURSO" type="xsd:string" use="optional" />
+    <xsd:attribute name="CODIGO-AREA-CURSO" type="xsd:string" use="optional" />
+    <xsd:attribute name="STATUS-DO-CURSO" use="optional">
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="EM_ANDAMENTO" />
+          <xsd:enumeration value="CONCLUIDO" />
+          <xsd:enumeration value="INCOMPLETO" />
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:attribute>
+    <xsd:attribute name="ANO-DE-INICIO" type="xsd:string" use="optional" />
+    <xsd:attribute name="ANO-DE-CONCLUSAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="FLAG-BOLSA" type="xsd:string" use="optional" />
+    <xsd:attribute name="CODIGO-AGENCIA-FINANCIADORA" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-AGENCIA" type="xsd:string" use="optional" />
+    <xsd:attribute name="NUMERO-ID-ORIENTADOR" type="xsd:string" use="optional" />
+    <xsd:attribute name="CODIGO-CURSO-CAPES" type="xsd:string" use="optional" />
+    <xsd:attribute name="TITULO-TRABALHO-CONCL-CURSO-INGLES" type="String" use="optional" />
+    <xsd:attribute name="NOME-CURSO-INGLES" type="xsd:string" use="optional" />
+    <xsd:attribute name="FORMACAO-ACADEMIC-TITULACAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="TIPO-GRADUACAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="CODIGO-INSTITUICAO-GRAD" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-INSTITUICAO-GRAD" type="xsd:string" use="optional" />
+    <xsd:attribute name="CODIGO-INSTITUICAO-OUTRA-GRAD" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-INSTITUICAO-OUTRA-GRAD" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-ORIENTADOR-GRAD" type="xsd:string" use="optional" />
+  </xsd:complexType>
+
+  <xsd:element name="APERFEICOAMENTO" type="AperfeicoamentoType"/>
+  <xsd:complexType name="AperfeicoamentoType">
+    <xsd:attribute name="SEQUENCIA-FORMACAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="NIVEL" type="xsd:string" use="optional" />
+    <xsd:attribute name="TITULO-DA-MONOGRAFIA" type="String" use="optional" />
+    <xsd:attribute name="NOME-DO-ORIENTADOR" type="xsd:string" use="optional" />
+    <xsd:attribute name="CODIGO-INSTITUICAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-INSTITUICAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="CODIGO-ORGAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-ORGAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="CODIGO-CURSO" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-CURSO" type="xsd:string" use="optional" />
+    <xsd:attribute name="CODIGO-AREA-CURSO" type="xsd:string" use="optional" />
+    <xsd:attribute name="STATUS-DO-CURSO" use="optional">
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="EM_ANDAMENTO" />
+          <xsd:enumeration value="CONCLUIDO" />
+          <xsd:enumeration value="INCOMPLETO" />
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:attribute>
+    <xsd:attribute name="ANO-DE-INICIO" type="xsd:string" use="optional" />
+    <xsd:attribute name="ANO-DE-CONCLUSAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="FLAG-BOLSA" type="xsd:string" use="optional" />
+    <xsd:attribute name="CODIGO-AGENCIA-FINANCIADORA" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-AGENCIA" type="xsd:string" use="optional" />
+    <xsd:attribute name="CARGA-HORARIA" type="xsd:string" use="optional" />
+    <xsd:attribute name="TITULO-DA-MONOGRAFIA-INGLES" type="String" use="optional" />
+    <xsd:attribute name="NOME-CURSO-INGLES" type="xsd:string" use="optional" />
+  </xsd:complexType>
+
+  <xsd:element name="ESPECIALIZACAO" type="EspecializacaoType"/>
+  <xsd:complexType name="EspecializacaoType">
+    <xsd:attribute name="SEQUENCIA-FORMACAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="NIVEL" type="xsd:string" use="optional" />
+    <xsd:attribute name="TITULO-DA-MONOGRAFIA" type="String" use="optional" />
+    <xsd:attribute name="NOME-DO-ORIENTADOR" type="xsd:string" use="optional" />
+    <xsd:attribute name="CODIGO-INSTITUICAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-INSTITUICAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="CODIGO-ORGAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-ORGAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="CODIGO-CURSO" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-CURSO" type="xsd:string" use="optional" />
+    <xsd:attribute name="STATUS-DO-CURSO" use="optional">
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="EM_ANDAMENTO" />
+          <xsd:enumeration value="CONCLUIDO" />
+          <xsd:enumeration value="INCOMPLETO" />
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:attribute>
+    <xsd:attribute name="ANO-DE-INICIO" type="xsd:string" use="optional" />
+    <xsd:attribute name="ANO-DE-CONCLUSAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="FLAG-BOLSA" type="xsd:string" use="optional" />
+    <xsd:attribute name="CODIGO-AGENCIA-FINANCIADORA" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-AGENCIA" type="xsd:string" use="optional" />
+    <xsd:attribute name="CARGA-HORARIA" type="xsd:string" use="optional" />
+    <xsd:attribute name="TITULO-DA-MONOGRAFIA-INGLES" type="String" use="optional" />
+    <xsd:attribute name="NOME-CURSO-INGLES" type="xsd:string" use="optional" />
+  </xsd:complexType>
+
+  <xsd:element name="MESTRADO" type="MestradoType"/>
+  <xsd:complexType name="MestradoType">
+    <xsd:sequence>
+      <xsd:element ref="PALAVRAS-CHAVE" minOccurs="0" maxOccurs="1" />
+      <xsd:element ref="AREAS-DO-CONHECIMENTO" minOccurs="0" maxOccurs="1" />
+      <xsd:element ref="SETORES-DE-ATIVIDADE" minOccurs="0" maxOccurs="1" />
+    </xsd:sequence>
+    <xsd:attribute name="SEQUENCIA-FORMACAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="NIVEL" type="xsd:string" use="optional" />
+    <xsd:attribute name="CODIGO-INSTITUICAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-INSTITUICAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="CODIGO-ORGAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-ORGAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="CODIGO-CURSO" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-CURSO" type="xsd:string" use="optional" />
+    <xsd:attribute name="CODIGO-AREA-CURSO" type="xsd:string" use="optional" />
+    <xsd:attribute name="STATUS-DO-CURSO" use="optional">
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="EM_ANDAMENTO" />
+          <xsd:enumeration value="CONCLUIDO" />
+          <xsd:enumeration value="INCOMPLETO" />
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:attribute>
+    <xsd:attribute name="ANO-DE-INICIO" type="xsd:string" use="optional" />
+    <xsd:attribute name="ANO-DE-CONCLUSAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="FLAG-BOLSA" type="xsd:string" use="optional" />
+    <xsd:attribute name="CODIGO-AGENCIA-FINANCIADORA" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-AGENCIA" type="xsd:string" use="optional" />
+    <xsd:attribute name="ANO-DE-OBTENCAO-DO-TITULO" type="xsd:string" use="optional" />
+    <xsd:attribute name="TITULO-DA-DISSERTACAO-TESE" type="String" use="optional" />
+    <xsd:attribute name="NOME-COMPLETO-DO-ORIENTADOR" type="xsd:string" use="optional" />
+    <xsd:attribute name="TIPO-MESTRADO" type="xsd:string" use="optional" />
+    <xsd:attribute name="NUMERO-ID-ORIENTADOR" type="xsd:string" use="optional" />
+    <xsd:attribute name="CODIGO-CURSO-CAPES" type="xsd:string" use="optional" />
+    <xsd:attribute name="TITULO-DISSERTACAO-TESE-INGLES" type="String" use="optional" />
+    <xsd:attribute name="NOME-CURSO-INGLES" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-DO-CO-ORIENTADOR" type="xsd:string" use="optional" />
+    <xsd:attribute name="CODIGO-INSTITUICAO-DOUT" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-INSTITUICAO-DOUT" type="xsd:string" use="optional" />
+    <xsd:attribute name="CODIGO-INSTITUICAO-OUTRA-DOUT" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-INSTITUICAO-OUTRA-DOUT" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-ORIENTADOR-DOUT" type="xsd:string" use="optional" />
+  </xsd:complexType>
+
+  <xsd:element name="MESTRADO-PROFISSIONALIZANTE" type="MetradoProfissionalizanteType"/>
+  <xsd:complexType name="MetradoProfissionalizanteType">
+    <xsd:sequence>
+      <xsd:element ref="PALAVRAS-CHAVE" minOccurs="0" maxOccurs="1" />
+      <xsd:element ref="AREAS-DO-CONHECIMENTO" minOccurs="0" maxOccurs="1" />
+      <xsd:element ref="SETORES-DE-ATIVIDADE" minOccurs="0" maxOccurs="1" />
+    </xsd:sequence>
+    <xsd:attribute name="SEQUENCIA-FORMACAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="NIVEL" type="xsd:string" use="optional" />
+    <xsd:attribute name="CODIGO-INSTITUICAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-INSTITUICAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="CODIGO-ORGAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-ORGAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="CODIGO-CURSO" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-CURSO" type="xsd:string" use="optional" />
+    <xsd:attribute name="CODIGO-AREA-CURSO" type="xsd:string" use="optional" />
+    <xsd:attribute name="STATUS-DO-CURSO" use="optional">
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="EM_ANDAMENTO" />
+          <xsd:enumeration value="CONCLUIDO" />
+          <xsd:enumeration value="INCOMPLETO" />
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:attribute>
+    <xsd:attribute name="ANO-DE-INICIO" type="xsd:string" use="optional" />
+    <xsd:attribute name="ANO-DE-CONCLUSAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="FLAG-BOLSA" type="xsd:string" use="optional" />
+    <xsd:attribute name="CODIGO-AGENCIA-FINANCIADORA" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-AGENCIA" type="xsd:string" use="optional" />
+    <xsd:attribute name="ANO-DE-OBTENCAO-DO-TITULO" type="xsd:string" use="optional" />
+    <xsd:attribute name="TITULO-DA-DISSERTACAO-TESE" type="String" use="optional" />
+    <xsd:attribute name="NOME-COMPLETO-DO-ORIENTADOR" type="xsd:string" use="optional" />
+    <xsd:attribute name="NUMERO-ID-ORIENTADOR" type="xsd:string" use="optional" />
+    <xsd:attribute name="CODIGO-CURSO-CAPES" type="xsd:string" use="optional" />
+    <xsd:attribute name="TITULO-DISSERTACAO-TESE-INGLES" type="String" use="optional" />
+    <xsd:attribute name="NOME-CURSO-INGLES" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-DO-CO-ORIENTADOR" type="xsd:string" use="optional" />
+  </xsd:complexType>
+
+  <xsd:element name="DOUTORADO" type="DoutoradoType"/>
+  <xsd:complexType name="DoutoradoType">
+    <xsd:sequence>
+      <xsd:element ref="PALAVRAS-CHAVE" minOccurs="0" maxOccurs="1" />
+      <xsd:element ref="AREAS-DO-CONHECIMENTO" minOccurs="0" maxOccurs="1" />
+      <xsd:element ref="SETORES-DE-ATIVIDADE" minOccurs="0" maxOccurs="1" />
+    </xsd:sequence>
+    <xsd:attribute name="SEQUENCIA-FORMACAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="NIVEL" type="xsd:string" use="optional" />
+    <xsd:attribute name="CODIGO-INSTITUICAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-INSTITUICAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="CODIGO-ORGAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-ORGAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="CODIGO-CURSO" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-CURSO" type="xsd:string" use="optional" />
+    <xsd:attribute name="CODIGO-AREA-CURSO" type="xsd:string" use="optional" />
+    <xsd:attribute name="STATUS-DO-CURSO" use="optional">
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="EM_ANDAMENTO" />
+          <xsd:enumeration value="CONCLUIDO" />
+          <xsd:enumeration value="INCOMPLETO" />
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:attribute>
+    <xsd:attribute name="ANO-DE-INICIO" type="xsd:string" use="optional" />
+    <xsd:attribute name="ANO-DE-CONCLUSAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="FLAG-BOLSA" type="xsd:string" use="optional" />
+    <xsd:attribute name="CODIGO-AGENCIA-FINANCIADORA" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-AGENCIA" type="xsd:string" use="optional" />
+    <xsd:attribute name="ANO-DE-OBTENCAO-DO-TITULO" type="xsd:string" use="optional" />
+    <xsd:attribute name="TITULO-DA-DISSERTACAO-TESE" type="String" use="optional" />
+    <xsd:attribute name="NOME-COMPLETO-DO-ORIENTADOR" type="xsd:string" use="optional" />
+    <xsd:attribute name="TIPO-DOUTORADO" type="xsd:string" use="optional" />
+    <xsd:attribute name="CODIGO-INSTITUICAO-DOUT" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-INSTITUICAO-DOUT" type="xsd:string" use="optional" />
+    <xsd:attribute name="CODIGO-INSTITUICAO-OUTRA-DOUT" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-INSTITUICAO-OUTRA-DOUT" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-ORIENTADOR-DOUT" type="xsd:string" use="optional" />
+    <xsd:attribute name="NUMERO-ID-ORIENTADOR" type="xsd:string" use="optional" />
+    <xsd:attribute name="CODIGO-CURSO-CAPES" type="xsd:string" use="optional" />
+    <xsd:attribute name="TITULO-DISSERTACAO-TESE-INGLES" type="String" use="optional" />
+    <xsd:attribute name="NOME-CURSO-INGLES" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-DO-ORIENTADOR-CO-TUTELA" type="xsd:string" use="optional" />
+    <xsd:attribute name="CODIGO-INSTITUICAO-OUTRA-CO-TUTELA" type="xsd:string" use="optional" />
+    <xsd:attribute name="CODIGO-INSTITUICAO-CO-TUTELA" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-DO-ORIENTADOR-SANDUICHE" type="xsd:string" use="optional" />
+    <xsd:attribute name="CODIGO-INSTITUICAO-OUTRA-SANDUICHE" type="xsd:string" use="optional" />
+    <xsd:attribute name="CODIGO-INSTITUICAO-SANDUICHE" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-DO-CO-ORIENTADOR" type="xsd:string" use="optional" />
+  </xsd:complexType>
+
+  <xsd:element name="RESIDENCIA-MEDICA" type="ResidenciaMedicaType"/>
+  <xsd:complexType name="ResidenciaMedicaType">
+    <xsd:sequence>
+      <xsd:element ref="PALAVRAS-CHAVE" minOccurs="0" maxOccurs="1" />
+      <xsd:element ref="AREAS-DO-CONHECIMENTO" minOccurs="0" maxOccurs="1" />
+      <xsd:element ref="SETORES-DE-ATIVIDADE" minOccurs="0" maxOccurs="1" />
+    </xsd:sequence>
+    <xsd:attribute name="SEQUENCIA-FORMACAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="NIVEL" type="xsd:string" use="optional" />
+    <xsd:attribute name="CODIGO-INSTITUICAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-INSTITUICAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="STATUS-DO-CURSO" use="optional">
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="EM_ANDAMENTO" />
+          <xsd:enumeration value="CONCLUIDO" />
+          <xsd:enumeration value="INCOMPLETO" />
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:attribute>
+    <xsd:attribute name="ANO-DE-INICIO" type="xsd:string" use="optional" />
+    <xsd:attribute name="ANO-DE-CONCLUSAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="FLAG-BOLSA" type="xsd:string" use="optional" />
+    <xsd:attribute name="CODIGO-AGENCIA-FINANCIADORA" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-AGENCIA" type="xsd:string" use="optional" />
+    <xsd:attribute name="TITULO-DA-RESIDENCIA-MEDICA" type="String" use="optional" />
+    <xsd:attribute name="NUMERO-DO-REGISTRO" type="xsd:string" use="optional" />
+    <xsd:attribute name="TITULO-RESIDENCIA-MEDICA-INGLES" type="String" use="optional" />
+  </xsd:complexType>
+
+  <xsd:element name="LIVRE-DOCENCIA" type="LivreDocenciaType"/>
+  <xsd:complexType name="LivreDocenciaType">
+    <xsd:sequence>
+      <xsd:element ref="PALAVRAS-CHAVE" minOccurs="0" maxOccurs="1" />
+      <xsd:element ref="AREAS-DO-CONHECIMENTO" minOccurs="0" maxOccurs="1" />
+      <xsd:element ref="SETORES-DE-ATIVIDADE" minOccurs="0" maxOccurs="1" />
+    </xsd:sequence>
+    <xsd:attribute name="SEQUENCIA-FORMACAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="NIVEL" type="xsd:string" use="optional" />
+    <xsd:attribute name="CODIGO-INSTITUICAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-INSTITUICAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="ANO-DE-OBTENCAO-DO-TITULO" type="xsd:string" use="optional" />
+    <xsd:attribute name="TITULO-DO-TRABALHO" type="String" use="optional" />
+    <xsd:attribute name="TITULO-DO-TRABALHO-INGLES" type="String" use="optional" />
+  </xsd:complexType>
+
+  <xsd:element name="POS-DOUTORADO" type="PosDoutoradoType"/>
+  <xsd:complexType name="PosDoutoradoType">
+    <xsd:sequence>
+      <xsd:element ref="PALAVRAS-CHAVE" minOccurs="0" maxOccurs="1" />
+      <xsd:element ref="AREAS-DO-CONHECIMENTO" minOccurs="0" maxOccurs="1" />
+      <xsd:element ref="SETORES-DE-ATIVIDADE" minOccurs="0" maxOccurs="1" />
+    </xsd:sequence>
+    <xsd:attribute name="SEQUENCIA-FORMACAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="NIVEL" type="xsd:string" use="optional" />
+    <xsd:attribute name="CODIGO-INSTITUICAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-INSTITUICAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="ANO-DE-INICIO" type="xsd:string" use="optional" />
+    <xsd:attribute name="ANO-DE-CONCLUSAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="ANO-DE-OBTENCAO-DO-TITULO" type="xsd:string" use="optional" />
+    <xsd:attribute name="FLAG-BOLSA" type="xsd:string" use="optional" />
+    <xsd:attribute name="CODIGO-AGENCIA-FINANCIADORA" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-AGENCIA" type="xsd:string" use="optional" />
+    <xsd:attribute name="STATUS-DO-ESTAGIO" type="xsd:string" use="optional" />
+    <xsd:attribute name="STATUS-DO-CURSO" type="xsd:string" use="optional" />
+    <xsd:attribute name="NUMERO-ID-ORIENTADOR" type="xsd:string" use="optional" />
+    <xsd:attribute name="CODIGO-CURSO-CAPES" type="xsd:string" use="optional" />
+    <xsd:attribute name="TITULO-DO-TRABALHO" type="String" use="optional" />
+    <xsd:attribute name="TITULO-DO-TRABALHO-INGLES" type="String" use="optional" />
+    <xsd:attribute name="NOME-CURSO-INGLES" type="xsd:string" use="optional" />
+  </xsd:complexType>
+
+  <xsd:element name="AREAS-DE-ATUACAO" type="AreasDeAtuacaoType"/>
+  <xsd:complexType name="AreasDeAtuacaoType">
+    <xsd:sequence>
+      <xsd:element ref="AREA-DE-ATUACAO" minOccurs="0" maxOccurs="unbounded" />
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:element name="AREA-DE-ATUACAO" type="AreaDeAtaucaoType"/>
+  <xsd:complexType name="AreaDeAtaucaoType">
+    <xsd:attribute name="SEQUENCIA-AREA-DE-ATUACAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-GRANDE-AREA-DO-CONHECIMENTO" use="optional">
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="OUTROS" />
+          <xsd:enumeration value="LINGUISTICA_LETRAS_E_ARTES" />
+          <xsd:enumeration value="CIENCIAS_HUMANAS" />
+          <xsd:enumeration value="CIENCIAS_SOCIAIS_APLICADAS" />
+          <xsd:enumeration value="CIENCIAS_AGRARIAS" />
+          <xsd:enumeration value="CIENCIAS_DA_SAUDE" />
+          <xsd:enumeration value="ENGENHARIAS" />
+          <xsd:enumeration value="CIENCIAS_BIOLOGICAS" />
+          <xsd:enumeration value="CIENCIAS_EXATAS_E_DA_TERRA" />
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:attribute>
+    <xsd:attribute name="NOME-DA-AREA-DO-CONHECIMENTO" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-DA-SUB-AREA-DO-CONHECIMENTO" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-DA-ESPECIALIDADE" type="xsd:string" use="optional" />
+  </xsd:complexType>
+
+  <xsd:element name="DADOS-COMPLEMENTARES" type="DadosComplementaresType"/>
+  <xsd:complexType name="DadosComplementaresType">
+    <xsd:sequence>
+      <xsd:element ref="INFORMACOES-ADICIONAIS-INSTITUICOES" minOccurs="0" maxOccurs="1" />
+      <xsd:element ref="INFORMACOES-ADICIONAIS-CURSOS" minOccurs="0" maxOccurs="1" />
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:element name="INFORMACOES-ADICIONAIS-INSTITUICOES" type="InformacoesAdicionaisInstituicoesType"/>
+  <xsd:complexType name="InformacoesAdicionaisInstituicoesType">
+    <xsd:sequence>
+      <xsd:element ref="INFORMACAO-ADICIONAL-INSTITUICAO" minOccurs="0" maxOccurs="unbounded" />
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:element name="INFORMACAO-ADICIONAL-INSTITUICAO" type="InformacaoAdicionalInstituicaoType"/>
+  <xsd:complexType name="InformacaoAdicionalInstituicaoType">
+    <xsd:attribute name="CODIGO-INSTITUICAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="SIGLA-INSTITUICAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="SIGLA-UF-INSTITUICAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="SIGLA-PAIS-INSTITUICAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-PAIS-INSTITUICAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="FLAG-AGENCIA-FOMENTO" use="optional">
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="SIM" />
+          <xsd:enumeration value="NAO" />
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:attribute>
+    <xsd:attribute name="FLAG-INSTITUICAO-DE-ENSINO" use="optional">
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="SIM" />
+          <xsd:enumeration value="NAO" />
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:attribute>
+  </xsd:complexType>
+
+  <xsd:element name="INFORMACOES-ADICIONAIS-CURSOS" type="InformacoesAdicionaisCursosType"/>
+  <xsd:complexType name="InformacoesAdicionaisCursosType">
+    <xsd:sequence>
+      <xsd:element ref="INFORMACAO-ADICIONAL-CURSO" minOccurs="0" maxOccurs="unbounded" />
+    </xsd:sequence>
+  </xsd:complexType>
+
+  <xsd:element name="INFORMACAO-ADICIONAL-CURSO" type="InformacaoAdicionalCursoType"/>
+  <xsd:complexType name="InformacaoAdicionalCursoType">
+    <xsd:attribute name="CODIGO-CURSO" type="xsd:string" use="optional" />
+    <xsd:attribute name="CODIGO-ORGAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-ORGAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="CODIGO-INSTITUICAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-INSTITUICAO" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-GRANDE-AREA-DO-CONHECIMENTO" default="NAO_INFORMADO">
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="OUTROS" />
+          <xsd:enumeration value="LINGUISTICA_LETRAS_E_ARTES" />
+          <xsd:enumeration value="CIENCIAS_HUMANAS" />
+          <xsd:enumeration value="CIENCIAS_SOCIAIS_APLICADAS" />
+          <xsd:enumeration value="CIENCIAS_AGRARIAS" />
+          <xsd:enumeration value="CIENCIAS_DA_SAUDE" />
+          <xsd:enumeration value="ENGENHARIAS" />
+          <xsd:enumeration value="CIENCIAS_BIOLOGICAS" />
+          <xsd:enumeration value="CIENCIAS_EXATAS_E_DA_TERRA" />
+          <xsd:enumeration value="NAO_INFORMADO" />
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:attribute>
+    <xsd:attribute name="NOME-DA-AREA-DO-CONHECIMENTO" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-DA-SUB-AREA-DO-CONHECIMENTO" type="xsd:string" use="optional" />
+    <xsd:attribute name="NOME-DA-ESPECIALIDADE" type="xsd:string" use="optional" />
+    <xsd:attribute name="NIVEL-CURSO" use="optional">
+      <xsd:simpleType>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="APERFEICOAMENTO_ESPECIALIZACAO" />
+          <xsd:enumeration value="APERFEICOAMENTO" />
+          <xsd:enumeration value="CURSO_DE_CURTA_DURACAO" />
+          <xsd:enumeration value="ESPECIALIZACAO" />
+          <xsd:enumeration value="ESTAGIO" />
+          <xsd:enumeration value="EXTENSAO_UNIVERSITARIA" />
+          <xsd:enumeration value="DOUTORADO" />
+          <xsd:enumeration value="GRADUACAO" />
+          <xsd:enumeration value="MESTRADO" />
+          <xsd:enumeration value="MESTRADO_DOUTORADO" />
+          <xsd:enumeration value="OT" />
+          <xsd:enumeration value="OUTRO" />
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:attribute>
+  </xsd:complexType>
+
+</xsd:schema>
