@@ -103,9 +103,10 @@ public class ListCurriculum {
 		HashMap<String, String> location;
 		DadosGeraisType dg = null;
 		String id16 = null;
+		Integer count = 0;
 		
 		for(Long id: curriculums){
-			
+			count++;
 			try{
 				curriculum = loadManager.find(CurriculoVitaeType.class, id);
 			}catch (NoResultException nre){
@@ -192,7 +193,8 @@ public class ListCurriculum {
 			location.put("year", "");
 			insertLocation(id16, location);
 			
-			System.out.println(id16);
+			if(count % 100 == 0)
+				System.out.println(count);
 		}
 		
 	}
